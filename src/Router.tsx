@@ -13,6 +13,8 @@ import Register from './routes/public/Register';
 import { useSelector } from 'react-redux';
 import AuthenticationState from './types/authentication';
 import Dashboard from './routes/authenticated/Dashboard';
+import Navbar from './components/Navbar';
+import Apps from './routes/authenticated/Apps';
 
 function Router() {
 
@@ -26,13 +28,18 @@ function Router() {
         <ConnectedRouter history={history}>
             <Switch>
                 {!authentication.loggedIn && 
-                    <Route exact path="/" component={Home}/>
+                    <React.Fragment>
+                        <Route exact path="/" component={Home}/>
+                        <Route exact path="/login" component={Login}/>
+                        <Route exact path="/register" component={Register}/>
+                    </React.Fragment>
                 }
                 {authentication.loggedIn &&
-                    <Route exact path="/" component={Dashboard}/>
+                    <React.Fragment>
+                        <Navbar/>
+                        <Route exact path="/" component={Apps}/>
+                    </React.Fragment>
                 }
-                <Route exact path="/login" component={Login}/>
-                <Route exact path="/register" component={Register}/>
             </Switch>
         </ConnectedRouter>
     );

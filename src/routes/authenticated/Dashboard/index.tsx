@@ -6,8 +6,6 @@ type Props = any;
 function Dashboard(props : Props) {
     return (
         <div className="route dashboard">
-            <Logo primary absolute small/>
-            Dashboard
         </div>
     )
 }

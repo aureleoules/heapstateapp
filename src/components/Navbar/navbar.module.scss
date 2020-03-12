@@ -1,0 +1,55 @@
+.navbar {
+    width: 65%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    position: relative;
+    display: block;
+    margin-top: 25px;
+
+    ul {
+        li {
+            
+            display: inline-block;
+        }
+    }
+
+    a.usertoggle {
+        right: 0;
+        top: 0;
+        position: absolute;
+        img {
+            width: 35px;
+        }
+    }
+
+    .top {
+        &:after {
+            background-image: linear-gradient(-90deg,rgba(255,255,255,0) 0,#fff 25%,#fff 90%,rgba(255,255,255,0) 100%);
+            content: "";
+            display: block;
+            height: 2px;
+            margin-top: 15px;
+            opacity: 0.2;
+            width: 100%;
+        }
+    }
+
+    .bottom {
+        margin-top: 25px;
+    }
+
+    ul {
+        li {
+            margin-right: 20px;
+            a {
+                color: #969696;
+                font-size: 1.2em;
+                
+                &.active {
+                    color: white;
+                }
+            }
+        }
+    }
+}

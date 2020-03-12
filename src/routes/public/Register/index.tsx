@@ -11,7 +11,6 @@ import {Link} from 'react-router-dom';
 
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
-import Axios from 'axios';
 
 export default function Register() {
 
@@ -26,10 +25,6 @@ export default function Register() {
         e.preventDefault();
         dispatch(userActions.register(email, password));
     }
-
-    Axios.get('/').then(response => {
-        console.log(response.data);
-    });
 
     return (
         <div className="route register">

@@ -9,5 +9,9 @@
     "Email": "Email",
     "Password": "Password",
     "Sign in": "Sign in",
-    "Sign up": "Sign up"
+    "Sign up": "Sign up",
+    "Apps": "Apps",
+    "Usage": "Usage",
+    "Settings": "Settings",
+    "Deploy new app": "Deploy new app"
 }

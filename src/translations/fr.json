@@ -9,5 +9,9 @@
     "Email": "Email",
     "Password": "Mot de passe",
     "Sign in": "Se connecter",
-    "Sign up": "Créer un compte"
+    "Sign up": "Créer un compte",
+    "Apps": "Applications",
+    "Usage": "Consommation",
+    "Settings": "Paramètres",
+    "Deploy new app": "Déployer une nouvelle application"
 }
