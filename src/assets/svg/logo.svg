@@ -1,0 +1,30 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid meet" viewBox="0 0 640 640">
+    <defs>
+        <path d="M320.01 16.65L623.35 320.01L319.99 623.35L16.65 319.99L320.01 16.65Z" id="a1NItYSpq7"></path>
+        <path d="M320.01 124.07L517.85 321.93L319.99 519.77L122.15 321.92L320.01 124.07Z" id="ckX00iG82"></path>
+        <path d="M320 519.77L369.5 569.27L320 618.77L270.5 569.27L320 519.77Z" id="cAcYVg128"></path>
+        <path d="M320 22.45L369.5 71.95L320 121.44L270.5 71.95L320 22.45Z" id="e13QUX4UBV"></path>
+    </defs>
+    <g>
+        <g>
+            <g>
+                <use xlink:href="#a1NItYSpq7" opacity="1" fill="#ffffff" fill-opacity="1"></use>
+                <g>
+                    <use xlink:href="#a1NItYSpq7" opacity="1" fill-opacity="0" stroke="#1b1a1a" stroke-width="20" stroke-opacity="1"></use>
+                </g>
+            </g>
+            <g>
+                <use xlink:href="#ckX00iG82" opacity="1" fill="#1b1a1a" fill-opacity="1"></use>
+                <g>
+                    <use xlink:href="#ckX00iG82" opacity="1" fill-opacity="0" stroke="#1b1a1a" stroke-width="20" stroke-opacity="1"></use>
+                </g>
+            </g>
+            <g>
+                <use xlink:href="#cAcYVg128" opacity="1" fill="#ff2763" fill-opacity="1"></use>
+            </g>
+            <g>
+                <use xlink:href="#e13QUX4UBV" opacity="1" fill="#ff2763" fill-opacity="1"></use>
+            </g>
+        </g>
+    </g>
+</svg>

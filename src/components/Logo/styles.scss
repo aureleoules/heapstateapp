@@ -1,6 +1,12 @@
 @import "../../styles/theme";
 
 .logo {
+    &.absolute {
+        position: absolute;
+        left: 25px;
+        top: 25px;
+    }
+
     h1 {
         font-family: 'Time Burner';
         font-weight: bold;
