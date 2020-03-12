@@ -1,14 +1,29 @@
 import React from 'react';
 
-interface Props {
-    onClick: () => void
-    title: String
+import './styles.scss';
+
+type Props = {
+    onClick?: any
+    title: string
+    primary?: boolean
+    secondary?: boolean
 }
 
-export default function Button(props: Props) {
+function Button(props: Props) {
     return (
-        <button onClick={props.onClick}>
+        <button className={
+            [
+                "button", 
+                props.primary ? "primary": "secondary",
+            ].join(" ")} onClick={props.onClick}>
             {props.title}
         </button>
     )
 }
+
+Button.defaultProps = {
+    primary: false,
+    secondary: true
+} as Partial<Props>;
+
+export default Button;

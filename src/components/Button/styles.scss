@@ -1,0 +1,41 @@
+@import "../../styles/theme";
+
+.button {
+    padding: 10px 15px;
+    color: white;
+    border-radius: 12px;
+    font-family: "Sen";
+    font-size: 1.3em;
+    border: 3px solid transparent;
+    transition: all 150ms ease-in;
+    
+    &.primary {
+        background: $primary;
+    }
+    
+    &.secondary {
+        background: transparent;
+        color: $primary;
+        border: 3px solid $primary;
+
+        &:hover {
+            background: $primary;
+            color: $light;
+        }
+    }
+
+    &.action {
+        background: transparent;
+
+        &:hover, &.active {
+            border: 3px solid #6c63ff;
+        }
+    }
+
+    &.disabled {
+        pointer-events: none;
+        cursor: none;
+        opacity: 0.5;
+    }
+
+}

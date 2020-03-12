@@ -1,0 +1,14 @@
+@import "../../styles/theme";
+
+.logo {
+    h1 {
+        font-family: 'Time Burner';
+        font-weight: bold;
+        color: white;
+        font-size: 4em;
+
+        &.primary {
+            color: $primary;
+        }
+    }
+}

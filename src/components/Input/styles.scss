@@ -1,0 +1,40 @@
+@import "../../styles/theme";
+
+.input {
+    margin-bottom: 15px;
+    span {
+        font-size: 1.1em;
+        margin-left: 4px;
+        color: $dark;
+    }
+
+    p.error {
+        margin-top: 5px;
+        margin-left: 4px;
+    }
+
+    input {
+        margin-top: 5px;
+        width: calc(100% - 15px);
+        height: 32px;
+        border-radius: 8px;
+        border: none;
+        padding-left: 15px;
+        padding-top: 6px;
+        padding-bottom: 6px;
+
+        font-family: "Sen";
+        font-size: 1.22em;
+        color: #2e3c42;
+        border: 2px solid #e9ebeb;
+    }
+
+    .input-grp {
+        display: flex;
+        align-items: center;
+        button {
+            margin-left: 7px;
+            border: solid 3px transparent;
+        }
+    }
+}

@@ -1,13 +1,14 @@
 import React from 'react';
-
-interface Props {
-    image: boolean
+import './styles.scss';
+type Props = {
+    image?: boolean
+    primary?: boolean
 }
 
 export default function Logo(props: Props) {
     return (
         <div className="logo">
-            <h1>heapstack</h1>
+            <h1 className={props.primary ? "primary" : ""}>heapstack</h1>
         </div>
     )
 }
