@@ -1,19 +1,18 @@
 import React, { useState } from 'react';
 import './styles.scss';
 
-import {userActions} from '../../actions';
-
-import Logo from '../../components/Logo';
-import Input from '../../components/Input';
-import Button from '../../components/Button';
+import Logo from '../../../components/Logo';
+import Input from '../../../components/Input';
+import Button from '../../../components/Button';
 
 import {Link} from 'react-router-dom';
 
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
-import Axios from 'axios';
 
-export default function Register() {
+import {userActions} from '../../../actions';
+import { useDispatch } from 'react-redux';
+
+function Login() {
 
     const {t} = useTranslation();
 
@@ -24,24 +23,19 @@ export default function Register() {
 
     function submit(e: any) {
         e.preventDefault();
-        dispatch(userActions.register(email, password));
+        dispatch(userActions.authenticate(email, password));
     }
 
-    Axios.get('/').then(response => {
-        console.log(response.data);
-    });
-
     return (
-        <div className="route register">
+        <div className="route login">
 
             <Logo absolute image/>
 
-
-            <div className="register-to-heapstack">
-                <span>{t('Sign up to')} </span> <Logo primary/>
+            <div className="login-to-heapstack">
+                <span>{t('Login to')} </span> <Logo primary/>
             </div>
-            <div className="register-container">
-                <form className="register-form" onSubmit={submit}>
+            <div className="login-container">
+                <form className="login-form" onSubmit={submit}>
                     <Input 
                         type="email"
                         label={t('Email')} 
@@ -56,10 +50,13 @@ export default function Register() {
                         value={password} 
                         placeholder={t('Password')}
                     />
-                    <Button submit primary title={t('Sign up')}/>
-                    <Link className="register-link" to="/login">{t('Already have an account?')}</Link>
+                    <Link to="/resetpassword">{t('Forgot your password?')}</Link>
+                    <Button submit primary title={t('Sign in')}/>
+                    <Link className="register-link" to="/register">{t("Don't have an account?")}</Link>
                 </form>
             </div>
         </div>
     )
 }
+
+export default Login;

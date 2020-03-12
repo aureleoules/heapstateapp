@@ -1,29 +1,40 @@
-import User from '../models/user';
 import {
     userConstants
 } from '../constants/user.constants';
+import { parseJwt } from '../utils/jwt';
+import User from '../types/user';
+import AuthenticationState from '../types/authentication';
 
 type Action = {
     type: string
-    user: User
+    token: string
 }
 
-export function authentication(state = {}, action: Action) {
+let initialState: AuthenticationState = {loggedIn: false, user: null};
+
+const jwt = localStorage.getItem("jwt") || "";
+if(jwt) {
+    const user = parseJwt(jwt);
+    initialState = user ? {loggedIn: true, user} : initialState;
+}
+
+export function authentication(state: AuthenticationState = initialState, action: Action) {
     switch (action.type) {
         case userConstants.AUTHENTICATE_REQUEST:
             return {
                 loggingIn: true,
-                user: action.user
+                user: null
             };
         case userConstants.AUTHENTICATE_SUCCESS:
+            const user = parseJwt(action.token);
             return {
                 loggedIn: true,
-                user: action.user
+                user
             };
         case userConstants.AUTHENTICATE_FAILURE:
-            return {};
+            return initialState;
         case userConstants.LOGOUT:
-            return {};
+            return initialState;
         default:
             return state
     }

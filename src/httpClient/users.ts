@@ -1,10 +1,10 @@
 import axios from 'axios';
-import User from '../models/user';
+import User from '../types/user';
 
 export default {
-    authenticate: (email: string, password: string) => new Promise<User>((resolve, reject) => {
+    authenticate: (email: string, password: string) => new Promise<string>((resolve, reject) => {
         axios.post('/authenticate', {email, password}).then(response => {
-            resolve(response.data.payload);
+            resolve(response.data.token);
         }).catch(err => {
             reject(err);
         });
