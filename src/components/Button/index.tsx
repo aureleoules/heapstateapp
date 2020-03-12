@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { HTMLAttributes, ButtonHTMLAttributes } from 'react';
 
 import './styles.scss';
 
@@ -7,11 +7,12 @@ type Props = {
     title: string
     primary?: boolean
     secondary?: boolean
+    submit?: boolean
 }
 
 function Button(props: Props) {
     return (
-        <button className={
+        <button type={props.submit ? "submit": "button"} className={
             [
                 "button", 
                 props.primary ? "primary": "secondary",

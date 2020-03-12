@@ -27,6 +27,10 @@
         font-size: 1.22em;
         color: #2e3c42;
         border: 2px solid #e9ebeb;
+        transition: border 100ms ease-in;
+        &:focus {
+            border: 2px solid $primary;
+        }
     }
 
     .input-grp {

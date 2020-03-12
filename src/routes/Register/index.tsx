@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import './styles.scss';
 
+import {userActions} from '../../actions';
+
 import Logo from '../../components/Logo';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
@@ -8,13 +10,26 @@ import Button from '../../components/Button';
 import {Link} from 'react-router-dom';
 
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import Axios from 'axios';
 
 export default function Register() {
 
-    const { t, i18n } = useTranslation();
+    const {t} = useTranslation();
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    const dispatch = useDispatch();
+
+    function submit(e: any) {
+        e.preventDefault();
+        dispatch(userActions.register(email, password));
+    }
+
+    Axios.get('/').then(response => {
+        console.log(response.data);
+    });
 
     return (
         <div className="route register">
@@ -26,7 +41,7 @@ export default function Register() {
                 <span>{t('Sign up to')} </span> <Logo primary/>
             </div>
             <div className="register-container">
-                <div className="register-form">
+                <form className="register-form" onSubmit={submit}>
                     <Input 
                         type="email"
                         label={t('Email')} 
@@ -41,9 +56,9 @@ export default function Register() {
                         value={password} 
                         placeholder={t('Password')}
                     />
-                    <Button primary title={t('Sign up')}/>
+                    <Button submit primary title={t('Sign up')}/>
                     <Link className="register-link" to="/login">{t('Already have an account?')}</Link>
-                </div>
+                </form>
             </div>
         </div>
     )
