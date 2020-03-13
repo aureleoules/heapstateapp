@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import deploy from './deploy.module.scss';
 import Button from '../../../components/Button';
 
-import {deploymentActions} from '../../../actions';
-
 import { useTranslation } from 'react-i18next';
 
 import {ReactComponent as GitHubIcon} from '../../../assets/svg/github.svg';
@@ -17,10 +15,11 @@ import Provider from '../../../types/provider';
 import Client from '../../../httpClient';
 import Repository from '../../../components/Repository';
 
-import sample from '../../../sample.json';
 import { Link } from 'react-router-dom';
-import Deployment from '../../../types/deployment';
+import App from '../../../types/app';
 import { useDispatch } from 'react-redux';
+import BuildOptions from '../../../types/build_options';
+import {appActions} from '../../../actions';
 
 let token: string;
 
@@ -110,15 +109,20 @@ function Deploy(props: any) {
     }
 
     function deployApp(e: any) {
-        const deployment: Deployment = {
+
+        const buildOptions: BuildOptions = {
+            branch
+        }
+
+        const app: App = {
             token,
-            branch,
+            build_options: buildOptions,
             name: selectedRepo.name,
             owner: selectedRepo.owner.login,
             provider: provider
         }
 
-        dispatch(deploymentActions.deploy(deployment));
+        dispatch(appActions.newApp(app));
     }
 
     return (
@@ -188,7 +192,7 @@ function Deploy(props: any) {
                                     <Button
                                         onClick={deployApp}
                                         disabled={!validRepo}
-                                        title={"Deploy"}
+                                        title={t('Save')}
                                         primary
                                         width={"65%"}
                                     />

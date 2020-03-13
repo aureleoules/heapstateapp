@@ -1,9 +1,9 @@
 import userActions from './user.actions';
 import oauthActions from './oauth.actions';
-import deploymentActions from './deployment.actions';
+import appActions from './apps.actions';
 
 export {
     userActions,
     oauthActions,
-    deploymentActions
+    appActions
 }

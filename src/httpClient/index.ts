@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import Users from './users';
 import GitHub from './github';
-import Deployments from './deployments';
+import Apps from './apps';
 
 axios.defaults.baseURL = process.env.REACT_APP_API_ENDPOINT;
 
@@ -15,7 +15,7 @@ if(localStorage.getItem("jwt")) {
 const Client = {
     Users,
     GitHub,
-    Deployments
+    Apps
 };
 
 export default Client;

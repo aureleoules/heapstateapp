@@ -1,11 +1,12 @@
 import Provider from "./provider";
+import BuildOptions from './build_options';
 
-type Deployment = {
+type App = {
     token: string
     provider: Provider
-    branch: string
+    build_options: BuildOptions
     owner: string
     name: string
 }
 
-export default Deployment;
+export default App;
