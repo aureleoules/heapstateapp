@@ -2,12 +2,14 @@ import React, { useState, useEffect } from 'react';
 import deploy from './deploy.module.scss';
 import Button from '../../../components/Button';
 
+import {deploymentActions} from '../../../actions';
+
 import { useTranslation } from 'react-i18next';
 
 import {ReactComponent as GitHubIcon} from '../../../assets/svg/github.svg';
 import {ReactComponent as GitLabIcon} from '../../../assets/svg/gitlab.svg';
 import {ReactComponent as BitBucketIcon} from '../../../assets/svg/bitbucket.svg';
-import {ReactComponent as SearchIcon} from '../../../assets/svg/search.svg';
+
 import Input from '../../../components/Input';
 
 import Provider from '../../../types/provider';
@@ -18,6 +20,7 @@ import Repository from '../../../components/Repository';
 import sample from '../../../sample.json';
 import { Link } from 'react-router-dom';
 import Deployment from '../../../types/deployment';
+import { useDispatch } from 'react-redux';
 
 let token: string;
 
@@ -52,6 +55,9 @@ function Deploy(props: any) {
 
     const [validRepo, setValidRepo] = useState<boolean>(false);
     const [checkingDockerfile, setCheckingDockerfile] = useState<boolean>(false);
+
+
+    const dispatch = useDispatch();
 
     function onProviderSelect(p: Provider) {
         setProvider(p);
@@ -111,7 +117,8 @@ function Deploy(props: any) {
             owner: selectedRepo.owner.login,
             provider: provider
         }
-        console.log(deployment);
+
+        dispatch(deploymentActions.deploy(deployment));
     }
 
     return (

@@ -1,5 +1,4 @@
 import Client from '../httpClient';
-import history from '../history';
 import { oauthConstants } from '../constants/oauth.constants';
 
 function authenticate_github(code: string) {
