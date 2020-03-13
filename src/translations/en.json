@@ -24,5 +24,6 @@
     "Select your Git provider. This is where your code is hosted.": "Select your Git provider. This is where your code is hosted.",
     "Repository": "Repository",
     "Choose the repository you wish to deploy.": "Choose the repository you wish to deploy.",
-    "Search": "Search"
+    "Search": "Search",
+    "Last deploy": "Last deploy:"
 }

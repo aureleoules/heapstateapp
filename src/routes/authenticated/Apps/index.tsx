@@ -3,9 +3,12 @@ import Button from '../../../components/Button';
 
 import { useTranslation } from 'react-i18next';
 
-import apps from './apps.module.scss';
+import styles from './apps.module.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { appActions } from '../../../actions';
+import App from '../../../types/app';
+import AppView from '../../../components/App';
+import Input from '../../../components/Input';
 
 function Apps(props: any) {
     const {t} = useTranslation();
@@ -17,16 +20,25 @@ function Apps(props: any) {
     }, []);
 
     interface RootState {
-        apps: object
+        apps: {
+            apps: Array<App>
+        }
     }
 
-    const appsState: object = useSelector((state: RootState) => state.apps);
-
-
+    const appsReducer: any = useSelector((state: RootState) => state.apps);
+    console.log("apps", appsReducer.apps);
     return (
-        <div className={"route " + apps.apps}>
-            <div className={apps.container}>
-                <Button href="/deploy" primary title={t("Deploy new app")}/>
+        <div className={"route " + styles.apps}>
+            <div className={styles.container}>
+                <div className={styles.top}>
+                    <Input width={"80%"} placeholder={t('Search')}/>
+                    <Button width={"15%"} href="/deploy" primary title={t("Deploy new app")}/>
+                </div>
+                <div className={styles.list}>
+                    {appsReducer.apps.map((app: App, k: number) => (
+                        <AppView app={app} key={k} />
+                    ))}
+                </div>
             </div>
         </div>
     )

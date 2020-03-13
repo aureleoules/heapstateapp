@@ -7,6 +7,8 @@ type App = {
     build_options: BuildOptions
     owner: string
     name: string
+    
+    url?: string
 }
 
 export default App;

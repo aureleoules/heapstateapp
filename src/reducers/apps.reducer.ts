@@ -15,7 +15,11 @@ type Action = {
     requesting: boolean
 }
 
-export function apps(state = {}, action: Action) {
+const defaultState = {
+    apps: []
+}
+
+export function apps(state = defaultState, action: Action) {
     switch (action.type) {
         
         case appConstants.CREATE_APP_START:

@@ -24,5 +24,6 @@
     "Select your Git provider. This is where your code is hosted.": "Sélectionnez votre hébergeur Git. C'est là où votre code est hébergé.",
     "Repository": "Projet",
     "Choose the repository you wish to deploy.": "Sélectionnez le projet que vous souhaitez déployer.",
-    "Search": "Rechercher"
+    "Search": "Rechercher",
+    "Last deploy": "Dernier déploiement :"
 }
