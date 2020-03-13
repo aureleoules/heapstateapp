@@ -12,17 +12,21 @@ import Login from './routes/public/Login';
 import Register from './routes/public/Register';
 import { useSelector } from 'react-redux';
 import AuthenticationState from './types/authentication';
-import Dashboard from './routes/authenticated/Dashboard';
 import Navbar from './components/Navbar';
 import Apps from './routes/authenticated/Apps';
+import Deploy from './routes/authenticated/Deploy';
+import Callback from './routes/authenticated/Callback';
+import { RouterState } from 'react-router-redux';
 
 function Router() {
 
     interface RootState {
-        authentication: object
+        authentication: object,
+        router: RouterState
     }
 
     const authentication: AuthenticationState = useSelector((state: RootState) => state.authentication);
+    const router: RouterState = useSelector((state: RootState) => state.router);
 
     return (
         <ConnectedRouter history={history}>
@@ -36,8 +40,10 @@ function Router() {
                 }
                 {authentication.loggedIn &&
                     <React.Fragment>
-                        <Navbar/>
+                        {router.location?.pathname !== "/callback" && <Navbar/>}
                         <Route exact path="/" component={Apps}/>
+                        <Route exact path="/deploy" component={Deploy}/>
+                        <Route exact path="/callback" component={Callback}/>
                     </React.Fragment>
                 }
             </Switch>

@@ -13,5 +13,16 @@
     "Apps": "Apps",
     "Usage": "Usage",
     "Settings": "Settings",
-    "Deploy new app": "Deploy new app"
+    "Deploy new app": "Deploy new app",
+    "Deploy an app": "Deploy an app",
+    "Deploy from": "Deploy from",
+    "Configure deployment options for your app.": "Configure deployment options for your app.",
+    "Deploy options": "Deploy options",
+    "Branch": "Branch",
+    "Deploy your application on heapstack in three simple steps.": "Deploy your application on heapstack in three simple steps.",
+    "Provider": "Provider",
+    "Select your Git provider. This is where your code is hosted.": "Select your Git provider. This is where your code is hosted.",
+    "Repository": "Repository",
+    "Choose the repository you wish to deploy.": "Choose the repository you wish to deploy.",
+    "Search": "Search"
 }

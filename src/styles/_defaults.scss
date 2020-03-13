@@ -4,6 +4,14 @@ h1 {
     font-size: 4em;
 }
 
+h2 {
+    font-size: 2.6em;
+}
+
+h3 {
+    font-size: 2em;
+}
+
 a {
     text-decoration: none;
     color: $dark;
@@ -13,5 +21,10 @@ a {
 .route {
     width: 65%;
     margin: 0 auto;
-    margin-top: 25px;
+    margin-top: 50px;
+    padding-bottom: 50px;
+}
+
+p.error {
+    color: $primary;
 }

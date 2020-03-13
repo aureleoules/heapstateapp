@@ -10,13 +10,13 @@ type Props = {
     name?: string
     value?: any
     type?: string
-    action?: object
     error?: string
+    width?: number | string
 }
 
 export default function Input(props: Props) {
     return (
-        <div className="input">
+        <div style={{width: props.width}} className="input">
             {props.label && <span>{props.label}</span>}
             <div className="input-grp">
                 <input 
@@ -28,7 +28,6 @@ export default function Input(props: Props) {
                     id={props.id} 
                     value={props.value}
                 />
-                {props.action}
             </div>
             {props.error && <p className="error">{props.error}</p>}
         </div>

@@ -1,0 +1,5 @@
+export const deploymentConstants = {
+    DEPLOY_START: 'DEPLOY_START',
+    DEPLOY_SUCCESS: 'DEPLOY_SUCCESS',
+    DEPLOY_FAILURE: 'DEPLOY_FAILURE',
+}

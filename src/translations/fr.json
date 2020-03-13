@@ -13,5 +13,16 @@
     "Apps": "Applications",
     "Usage": "Consommation",
     "Settings": "Paramètres",
-    "Deploy new app": "Déployer une nouvelle application"
+    "Deploy new app": "Déployer une nouvelle application",
+    "Deploy an app": "Nouvelle application",
+    "Deploy from": "Déployer à partir de",
+    "Configure deployment options for your app.": "Configurer les options de déploiement.",
+    "Deploy options": "Options de déploiement",
+    "Branch": "Branche",
+    "Deploy your application on heapstack in three simple steps.": "Déployez votre application sur heapstack en trois étapes.",
+    "Provider": "Hébergeur",
+    "Select your Git provider. This is where your code is hosted.": "Sélectionnez votre hébergeur Git. C'est là où votre code est hébergé.",
+    "Repository": "Projet",
+    "Choose the repository you wish to deploy.": "Sélectionnez le projet que vous souhaitez déployer.",
+    "Search": "Rechercher"
 }

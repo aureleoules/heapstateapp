@@ -35,19 +35,21 @@ function Navbar(props: any) {
     }
 
     const router: RouterState = useSelector((state: RootState) => state.router);
-    console.log(router);
+
+    let showRoutes = true;
+    if(router.location?.pathname === "/deploy") showRoutes = false;
 
     return (
         <div className={styles.navbar}>
             <div className={styles.top}>
-                <Logo small primary/>
+                <Logo link small primary/>
                 <a className={styles.usertoggle} href="#">
                     <img src={Avatar}/>
                 </a>
             </div>
 
             <div className={styles.bottom}>
-                <ul>
+                {showRoutes && <ul>
                     {routes.map((r, k) => <li key={k}>
                         <Link 
                             className={[
@@ -57,7 +59,7 @@ function Navbar(props: any) {
                             {r.name}
                         </Link>
                     </li>)}
-                </ul>
+                </ul>}
             </div>
 
 
