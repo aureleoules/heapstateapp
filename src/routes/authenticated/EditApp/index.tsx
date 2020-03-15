@@ -61,21 +61,24 @@ function EditApp(props: any) {
                         <div className="container-left">
                             <h3>{app.name}</h3>
                             <a target="_blank" href={"https://" + app.url}>{app.url}</a>
-        <p><CheckIcon className={styles.check}/>{t('Deployed from')} {Providers[app.provider!]}. {t('Last build')} {dayjs(app.last_build?.created_at).fromNow()}.</p>
+                            <p>
+                                <CheckIcon className={styles.check}/>{t('Deployed from')} {Providers[app.provider!]}. {t('Last build')} {dayjs(app.last_build?.created_at).fromNow()}.
+                            </p>
 
                             <div className={styles.actions}>
+                                <Button small primary title={t('Open')}/>
                                 <Button href={`/apps/${name}/builds`} small primary title={t('Build settings')}/>
                                 <Button target="_blank" external href={`${app.complete_url}/blob/${app.build_options?.branch}/Dockerfile`} small title={t('Dockerfile')}/>
                             </div>
                         </div>
                         <div className="container-right relative">
                             <h3>{t('Actions')}</h3>
-                            <p>{t('Control your Docker container.')}</p>
+                            <p>{t('Control your heapstack container.')}</p>
                             <div className={`${styles.actions} ${styles.bottom}`}>
-                                <Button small primary title={t('Open')}/>
-                                <Button small title={t('View logs')}/>
+                                <Button small primary title={t('Resize')}/>
                                 <Button small title={t('Restart')}/>
                                 <Button small title={t('Stop')}/>
+                                <Button href={`/apps/${name}/logs`} small title={t('View logs')}/>
                             </div>
                         </div>
                     </div>
