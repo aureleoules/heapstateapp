@@ -2,6 +2,7 @@ import Client from '../httpClient';
 import history from '../history';
 import { appConstants } from '../constants/app.constants';
 import App from '../types/app';
+import Build from '../types/build';
 
 function newApp(app: App) {
     return (dispatch: any) => {
@@ -51,6 +52,22 @@ function fetchApp(name: string) {
     function failure(error: Error) { return { type: appConstants.FETCH_APP_FAILURE, error } }
 }
 
+function fetchBuilds(name: string) {
+    return (dispatch: any) => {
+        dispatch(request());
+
+        Client.Apps.fetchBuilds(name).then(builds => {
+            dispatch(success(builds));
+        }).catch(err => {
+            dispatch(failure(err));
+        })
+    }
+
+    function request() { return { type: appConstants.FETCH_BUILDS_START}}
+    function success(builds: Array<Build>) { return { type: appConstants.FETCH_BUILDS_SUCCESS, builds} }
+    function failure(error: Error) { return { type: appConstants.FETCH_BUILDS_FAILURE, error } }
+}
+
 function fetchBuildOptions(name: string) {
     return (dispatch: any) => {
         dispatch(request());
@@ -88,5 +105,6 @@ export default {
     fetchApps,
     fetchApp,
     fetchBuildOptions,
-    forceDeploy
+    forceDeploy,
+    fetchBuilds
 };

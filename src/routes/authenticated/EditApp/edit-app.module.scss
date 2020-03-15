@@ -5,6 +5,7 @@
     .container {
         display: flex;
         flex-direction: column;
+        position: relative;
     }
 
     .check {
@@ -35,9 +36,15 @@
             > * {
                 margin-right: 15px;
             }
+
+            &.bottom {
+                position: absolute;
+                bottom: 0;
+            }
         }
 
     }
     .recent-builds {
+        
     }
 }

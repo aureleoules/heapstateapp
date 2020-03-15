@@ -5,4 +5,11 @@ enum Provider {
     None
 }
 
+export const Providers = [
+    "GitHub",
+    "GitLab",
+    "BitBucket",
+    ""
+]
+
 export default Provider;

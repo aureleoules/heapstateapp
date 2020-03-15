@@ -1,6 +1,7 @@
 import axios from 'axios';
 import App from '../types/app';
 import BuildOptions from '../types/build_options';
+import Build from '../types/build';
 
 const route = "/apps";
 
@@ -39,6 +40,14 @@ export default {
 
     forceDeploy: (name: string) => new Promise<any>((resolve, reject) => {
         axios.post(route + '/' + name + '/deploy').then(response => {
+            resolve(response.data.payload);
+        }).catch(err => {
+            reject(err);
+        });
+    }),
+
+    fetchBuilds: (name: string) => new Promise<Array<Build>>((resolve, reject) => {
+        axios.get(route + '/' + name + '/builds').then(response => {
             resolve(response.data.payload);
         }).catch(err => {
             reject(err);

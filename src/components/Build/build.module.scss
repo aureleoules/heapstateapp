@@ -1,0 +1,46 @@
+@import "../../styles/theme";
+
+.build {
+    height: 35px;
+    display: flex;
+    position: relative;
+    cursor: pointer;
+    padding: 18px 15px;
+    border-radius: 8px;
+    flex-direction: column;
+    transition: background-color 0.15s;
+
+    &.selected {
+        &:hover {
+            background-color: rgba($primary, 0.9);
+        }
+    }
+
+    &:hover {
+        background-color: #e3e3e3;
+    }
+
+    p {
+        margin-bottom: 5px;
+        display: flex;
+        align-items: center;
+    }
+
+    span {
+        margin-left: 8px;
+    }
+
+    svg {
+        width: 20px;
+        height: 20px;
+
+        &.check {
+            color: $success;
+        }
+    }
+
+    small {
+        font-size: 0.9em;
+        opacity: 0.8;
+    }
+}

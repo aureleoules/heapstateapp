@@ -9,6 +9,29 @@ import { appActions } from '../../../actions';
 import { useParams } from 'react-router';
 import App from '../../../types/app';
 import Navbar from '../../../components/Navbar';
+import Build from '../../../types/build';
+import BuildView from '../../../components/Build';
+import { Doughnut } from 'react-chartjs-2';
+import { Providers } from '../../../types/provider';
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime';
+dayjs.extend(relativeTime)
+
+const data = {
+	labels: [
+        'Used RAM (MB)',
+        'Available RAM (MB)'
+	],
+	datasets: [{
+		data: [180, 76],
+		backgroundColor: [
+            '#ff2763'
+		],
+		hoverBackgroundColor: [
+            '#FF6384'
+		]
+	}]
+};
 
 function EditApp(props: any) {
     
@@ -21,10 +44,12 @@ function EditApp(props: any) {
     const appReducer: any = useSelector((state: RootState) => state.apps);
     
     const app: App = appReducer.app;
+    const builds: Array<Build> = appReducer.builds;
     
     const {name} = useParams();
     useEffect(() => {
         dispatch(appActions.fetchApp(name!))
+        dispatch(appActions.fetchBuilds(name!))
     }, []);
 
     return (
@@ -32,18 +57,42 @@ function EditApp(props: any) {
             <Navbar app/>
             <div className={styles['edit-app'] + " route"}>
                 {appReducer.app && <div className={styles.container}>
-                    <div className={`${styles['app-infos']} container`}>
-                        <h3>{app.name}</h3>
-                        <a target="_blank" href={"https://" + app.url}>{app.url}</a>
-                        <p><CheckIcon className={styles.check}/> Deployed from GitHub. Last build on March 12.</p>
+                    <div className={`${styles['app-infos']} container multi`}>
+                        <div className="container-left">
+                            <h3>{app.name}</h3>
+                            <a target="_blank" href={"https://" + app.url}>{app.url}</a>
+        <p><CheckIcon className={styles.check}/>{t('Deployed from')} {Providers[app.provider!]}. {t('Last build')} {dayjs(app.last_build?.created_at).fromNow()}.</p>
 
-                        <div className={styles.actions}>
-                            <Button href={`/apps/${name}/builds`} small primary title={t('Build settings')}/>
-                            <Button small title={t('Environnement variables')}/>
+                            <div className={styles.actions}>
+                                <Button href={`/apps/${name}/builds`} small primary title={t('Build settings')}/>
+                                <Button target="_blank" external href={`${app.complete_url}/blob/${app.build_options?.branch}/Dockerfile`} small title={t('Dockerfile')}/>
+                            </div>
+                        </div>
+                        <div className="container-right relative">
+                            <h3>{t('Actions')}</h3>
+                            <p>{t('Control your Docker container.')}</p>
+                            <div className={`${styles.actions} ${styles.bottom}`}>
+                                <Button small primary title={t('Open')}/>
+                                <Button small title={t('View logs')}/>
+                                <Button small title={t('Restart')}/>
+                                <Button small title={t('Stop')}/>
+                            </div>
                         </div>
                     </div>
-                    <div className={`${styles['recent-builds']} container`}>
-                        <h3>{t('Builds')}</h3>
+                    <div className={`container-row`}>
+                        <div className={`${styles['recent-builds']} container`}>
+                            <h3>{t('Builds')}</h3>
+                            <div className={styles.builds}>
+                                {builds.map((b, k) => (
+                                    <BuildView key={k} {...b}/>
+                                ))}
+                            </div>
+                        </div>
+
+                        <div className={`container`}>
+                            <h3>{t('Usage')}</h3>
+                            <Doughnut data={data}/>
+                        </div>
                     </div>
                 </div>}
             </div> 

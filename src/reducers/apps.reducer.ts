@@ -3,17 +3,20 @@ import {
 } from '../constants/app.constants';
 import App from '../types/app';
 import BuildOptions from '../types/build_options';
+import Build from '../types/build';
 
 type Action = {
     type: string
     error: Error
-    apps: Array < App >
+    apps: Array <App>
         app: App
     build_options: BuildOptions
+    builds: Array<Build>
 }
 
 const defaultState = {
     apps: [],
+    builds: [],
     app: null,
     build_options: null,
     fetching: false,
@@ -24,7 +27,7 @@ const defaultState = {
     deploy_error: null,
     deploying: false,
     deployed: false,
-
+    fetch_builds_error: null
 }
 
 export function apps(state = defaultState, action: Action) {
@@ -103,6 +106,25 @@ export function apps(state = defaultState, action: Action) {
                 ...state,
                 fetching: false,
                 fetch_build_options_error: action.error
+            };
+
+                /* Fetch builds */
+        case appConstants.FETCH_BUILDS_START:
+            return {
+                ...state,
+                fetching: true
+            };
+        case appConstants.FETCH_BUILDS_SUCCESS:
+            return {
+                ...state,
+                fetching: false,
+                builds: action.builds
+            };
+        case appConstants.FETCH_BUILDS_FAILURE:
+            return {
+                ...state,
+                fetching: false,
+                fetch_builds_error: action.error
             };
 
             /* Force deploy */

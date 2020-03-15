@@ -16,6 +16,8 @@ type Props = {
     target?: string
     external?: boolean
     small?: boolean
+    danger?: boolean
+    success?: boolean
 }
 
 function Button(props: Props) {
@@ -24,9 +26,13 @@ function Button(props: Props) {
     
     const className = [
         button.button, 
-        props.primary ? button.primary: button.secondary,
+        props.primary ? button.primary: "",
         props.disabled ? button.disabled : "",
         props.small ? button.small : "",
+        props.danger ? button.danger : "",
+        props.success ? button.success : "",
+
+        !props.primary && !props.danger && !props.success ? button.secondary : "" 
     ].join(" ");
 
     const style = {

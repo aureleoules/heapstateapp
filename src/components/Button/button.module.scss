@@ -46,6 +46,16 @@ a.button {
         padding: 6px 10px;
         font-size: 1.1em;
     }
+
+    &.danger {
+        background: $danger!important;
+        border-color: $danger!important;
+        color: white;
+    }
+
+    &.success {
+        background: $success;
+    }
     
     &.secondary {
         background: transparent;

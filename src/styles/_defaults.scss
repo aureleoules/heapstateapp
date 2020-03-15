@@ -18,6 +18,10 @@ a {
     outline: 0!important;
 }
 
+.relative {
+    position: relative;
+}
+
 .route {
     width: 65%;
     margin: 0 auto;
@@ -33,7 +37,7 @@ p.error {
     border-radius: 8px;
     background-color: white;
     color: $dark;
-    padding: 40px;
+    padding: 30px;
 
     &:first-child {
         margin: 0;
@@ -42,5 +46,44 @@ p.error {
 
     h3 {
         margin-bottom: 15px;
+    }
+
+    &.multi {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+
+        .container-left, .container-right {
+            width: 100%;
+        }
+
+        .container-left {
+            margin-right: 15px;
+        }
+        .container-right {
+            margin-left: 15px;
+        }
+    }
+}
+
+.container-row {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+
+    &:first-child {
+        margin-top: 0;
+    }
+
+    .container {
+        width: 100%;
+
+        margin-top: 0;
+        &:nth-child(1) {
+            margin-right: 15px;
+        }
+        &:nth-child(2) {
+            margin-left: 15px;
+        }
     }
 }
