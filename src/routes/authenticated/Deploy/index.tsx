@@ -20,6 +20,7 @@ import App from '../../../types/app';
 import { useDispatch } from 'react-redux';
 import BuildOptions from '../../../types/build_options';
 import {appActions} from '../../../actions';
+import Navbar from '../../../components/Navbar';
 
 let token: string;
 
@@ -126,83 +127,86 @@ function Deploy(props: any) {
     }
 
     return (
-        <div className={"route " + deploy.deploy}>
-            <div className={deploy.container}>
-                <div className={deploy.deployment}>
-                    <h2>{t('Deploy an app')}</h2>
-                    <p>{t('Deploy your application on heapstack in three simple steps.')}</p>
-                    <div className={deploy.chooser}>
-                        <div className={deploy.steps}>
-                            <div className={deploy.step}>
-                                <h3>{t('Provider')}</h3>
-                                <p>{t('Select your Git provider. This is where your code is hosted.')}</p>
-                                <div className={deploy.methods}>
-                                    {providers.map((p, k) => <Button
-                                        key={k}
-                                        onClick={() => onProviderSelect(p.provider)}
-                                        title={p.title}
-                                        icon={p.icon}
-                                        primary={provider === p.provider}
-                                    />)}
-                                </div>
-                            </div>
-
-                            {provider !== Provider.None && repos.length > 0 && <div className={deploy.step}>
-                                <h3>{t('Repository')}</h3>
-                                <p>{t('Choose the repository you wish to deploy.')}</p>
-                                {!selectedRepo && <React.Fragment>
-                                    <Input value={filter} onChange={updateFilter} placeholder={t('Search')}/>
-                                    <div className={deploy.repositories}>
-                                        {filteredRepos.map((repo, k) => <Repository
-                                            onClick={() => selectRepo(repo)}
+        <>
+            <Navbar/>
+            <div className={"route " + deploy.deploy}>
+                <div className={deploy.container}>
+                    <div className={deploy.deployment}>
+                        <h2>{t('Deploy an app')}</h2>
+                        <p>{t('Deploy your application on heapstack in three simple steps.')}</p>
+                        <div className={deploy.chooser}>
+                            <div className={deploy.steps}>
+                                <div className={deploy.step}>
+                                    <h3>{t('Provider')}</h3>
+                                    <p>{t('Select your Git provider. This is where your code is hosted.')}</p>
+                                    <div className={deploy.methods}>
+                                        {providers.map((p, k) => <Button
                                             key={k}
-                                            icon={GitHubIcon}
-                                            name={repo.owner.login + "/" + repo.name}
+                                            onClick={() => onProviderSelect(p.provider)}
+                                            title={p.title}
+                                            icon={p.icon}
+                                            primary={provider === p.provider}
                                         />)}
                                     </div>
-                                    </React.Fragment>
-                                }
-                                {selectedRepo && <React.Fragment>
-                                    <Repository 
-                                        icon={GitHubIcon} 
-                                        name={selectedRepo.owner.login + "/" + selectedRepo.name}
-                                        onClick={() => setSelectedRepo(null)}
-                                        selected
-                                    />
-                                    {!validRepo && !checkingDockerfile && <>
-                                        <p className="error">{t('Dockerfile could not be found.')}</p>
-                                        <Link to="/guide">{t('How to write a Dockerfile')}</Link>
-                                    </>}
-                                </React.Fragment>}
-                            </div>}
-                                
-                            {provider !== Provider.None && selectedRepo && validRepo && <div className={deploy.step}>
-                                <h3>{t('Deploy options')}</h3>
-                                <p>{t('Configure deployment options for your app.')}</p>
-                                <Input onChange={(e: any) => setBranch(e.target.value)} label={t("Branch")} value={branch} placeholder={t("Branch")}/>
-                                <div className={deploy.submitButtons}>
-                                    <Button
-                                        external
-                                        href={`https://github.com/${selectedRepo.owner.login}/${selectedRepo.name}/blob/${branch}/Dockerfile`}
-                                        target="_blank"
-                                        title={"Dockerfile"}
-                                        width={"30%"}
-                                        disabled={!validRepo}
-                                    />
-                                    <Button
-                                        onClick={deployApp}
-                                        disabled={!validRepo}
-                                        title={t('Save')}
-                                        primary
-                                        width={"65%"}
-                                    />
                                 </div>
-                            </div>}
+
+                                {provider !== Provider.None && repos.length > 0 && <div className={deploy.step}>
+                                    <h3>{t('Repository')}</h3>
+                                    <p>{t('Choose the repository you wish to deploy.')}</p>
+                                    {!selectedRepo && <React.Fragment>
+                                        <Input value={filter} onChange={updateFilter} placeholder={t('Search')}/>
+                                        <div className={deploy.repositories}>
+                                            {filteredRepos.map((repo, k) => <Repository
+                                                onClick={() => selectRepo(repo)}
+                                                key={k}
+                                                icon={GitHubIcon}
+                                                name={repo.owner.login + "/" + repo.name}
+                                            />)}
+                                        </div>
+                                        </React.Fragment>
+                                    }
+                                    {selectedRepo && <React.Fragment>
+                                        <Repository 
+                                            icon={GitHubIcon} 
+                                            name={selectedRepo.owner.login + "/" + selectedRepo.name}
+                                            onClick={() => setSelectedRepo(null)}
+                                            selected
+                                        />
+                                        {!validRepo && !checkingDockerfile && <>
+                                            <p className="error">{t('Dockerfile could not be found.')}</p>
+                                            <Link to="/guide">{t('How to write a Dockerfile')}</Link>
+                                        </>}
+                                    </React.Fragment>}
+                                </div>}
+                                    
+                                {provider !== Provider.None && selectedRepo && validRepo && <div className={deploy.step}>
+                                    <h3>{t('Deploy options')}</h3>
+                                    <p>{t('Configure deployment options for your app.')}</p>
+                                    <Input onChange={(e: any) => setBranch(e.target.value)} label={t("Branch")} value={branch} placeholder={t("Branch")}/>
+                                    <div className={deploy.submitButtons}>
+                                        <Button
+                                            external
+                                            href={`https://github.com/${selectedRepo.owner.login}/${selectedRepo.name}/blob/${branch}/Dockerfile`}
+                                            target="_blank"
+                                            title={"Dockerfile"}
+                                            width={"30%"}
+                                            disabled={!validRepo}
+                                        />
+                                        <Button
+                                            onClick={deployApp}
+                                            disabled={!validRepo}
+                                            title={t('Save')}
+                                            primary
+                                            width={"65%"}
+                                        />
+                                    </div>
+                                </div>}
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </>
     )
 }
 

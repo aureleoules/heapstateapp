@@ -17,9 +17,12 @@ import Apps from './routes/authenticated/Apps';
 import Deploy from './routes/authenticated/Deploy';
 import Callback from './routes/authenticated/Callback';
 import { RouterState } from 'react-router-redux';
+import EditApp from './routes/authenticated/EditApp';
+import Builds from './routes/authenticated/Builds';
+import AppLogs from './routes/authenticated/AppLogs';
 
-function Router() {
-
+function Router(props: any) {
+    
     interface RootState {
         authentication: object,
         router: RouterState
@@ -40,9 +43,13 @@ function Router() {
                 }
                 {authentication.loggedIn &&
                     <React.Fragment>
-                        {router.location?.pathname !== "/callback" && <Navbar/>}
                         <Route exact path="/" component={Apps}/>
                         <Route exact path="/deploy" component={Deploy}/>
+                        
+                        <Route exact path="/apps/:name" component={EditApp}/>
+                        <Route exact path="/apps/:name/builds" component={Builds}/>
+                        <Route exact path="/apps/:name/logs" component={AppLogs}/>
+
                         <Route exact path="/callback" component={Callback}/>
                     </React.Fragment>
                 }

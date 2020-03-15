@@ -8,14 +8,15 @@ import {ReactComponent as CheckIcon} from '../../assets/svg/check.svg';
 import {ReactComponent as CrossIcon} from '../../assets/svg/x.svg';
 
 type Props = {
-    app: AppType
+    app: AppType,
+    onClick: any
 }
 
-function App({app}: Props) {
+function App(props: Props) {
     const {t} = useTranslation();
-    
+    const { app } = props;
     return (
-        <div className={styles.app}>
+        <div onClick={props.onClick} className={styles.app}>
             {/* TODO: build status */}
             <CheckIcon className={styles.check}/>
             {/* <CrossIcon className={styles.cross}/> */}

@@ -8,6 +8,7 @@ type App = {
     owner: string
     name: string
     
+    complete_url?: string
     url?: string
 }
 

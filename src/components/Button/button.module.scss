@@ -1,9 +1,12 @@
 @import "../../styles/theme";
 
 a.button {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
+    &.small {
+        padding: 8px 10px;
+    }
 }
 
 .button {
@@ -37,6 +40,11 @@ a.button {
     &.primary {
         background: $primary;
         span {color: $light!important;}
+    }
+
+    &.small {
+        padding: 6px 10px;
+        font-size: 1.1em;
     }
     
     &.secondary {

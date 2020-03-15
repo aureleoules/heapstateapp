@@ -1,0 +1,43 @@
+@import "../../../styles/theme";
+
+.edit-app {
+
+    .container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .check {
+        color: $success;
+    }
+
+    .app-infos {
+        h3 {
+            margin-bottom: 5px;
+        }
+
+        a {
+            color: $primary;
+        }
+
+        p {
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            svg {
+                margin-right: 5px;
+            }
+        }
+
+        .actions {
+            // display: flex;
+            margin-top: 15px;
+            > * {
+                margin-right: 15px;
+            }
+        }
+
+    }
+    .recent-builds {
+    }
+}

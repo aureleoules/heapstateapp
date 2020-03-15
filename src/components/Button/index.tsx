@@ -15,6 +15,7 @@ type Props = {
     disabled?: boolean
     target?: string
     external?: boolean
+    small?: boolean
 }
 
 function Button(props: Props) {
@@ -24,7 +25,8 @@ function Button(props: Props) {
     const className = [
         button.button, 
         props.primary ? button.primary: button.secondary,
-        props.disabled ? button.disabled : ""
+        props.disabled ? button.disabled : "",
+        props.small ? button.small : "",
     ].join(" ");
 
     const style = {
@@ -54,6 +56,7 @@ function Button(props: Props) {
 Button.defaultProps = {
     primary: false,
     secondary: true,
+    small: false
 } as Partial<Props>;
 
 export default Button;

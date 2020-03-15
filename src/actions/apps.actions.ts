@@ -35,7 +35,58 @@ function fetchApps() {
     function failure(error: Error) { return { type: appConstants.FETCH_APPS_FAILURE, error } }
 }
 
+function fetchApp(name: string) {
+    return (dispatch: any) => {
+        dispatch(request());
+
+        Client.Apps.fetch(name).then(app => {
+            dispatch(success(app));
+        }).catch(err => {
+            dispatch(failure(err));
+        })
+    }
+
+    function request() { return { type: appConstants.FETCH_APP_START}}
+    function success(app: App) { return { type: appConstants.FETCH_APP_SUCCESS, app} }
+    function failure(error: Error) { return { type: appConstants.FETCH_APP_FAILURE, error } }
+}
+
+function fetchBuildOptions(name: string) {
+    return (dispatch: any) => {
+        dispatch(request());
+
+        Client.Apps.fetchBuildOptions(name).then(app => {
+            dispatch(success(app));
+        }).catch(err => {
+            dispatch(failure(err));
+        })
+    }
+
+    function request() { return { type: appConstants.FETCH_BUILD_OPTIONS_START}}
+    function success(build_options: any) { return { type: appConstants.FETCH_BUILD_OPTIONS_SUCCESS, build_options} }
+    function failure(error: Error) { return { type: appConstants.FETCH_BUILD_OPTIONS_FAILURE, error } }
+}
+
+function forceDeploy(name: string) {
+    return (dispatch: any) => {
+        dispatch(request());
+
+        Client.Apps.forceDeploy(name).then(() => {
+            dispatch(success());
+        }).catch(err => {
+            dispatch(failure(err));
+        })
+    }
+
+    function request() { return { type: appConstants.DEPLOY_START}}
+    function success() { return { type: appConstants.DEPLOY_SUCCESS} }
+    function failure(error: Error) { return { type: appConstants.DEPLOY_FAILURE, error } }
+}
+
 export default {
     newApp,
-    fetchApps
+    fetchApps,
+    fetchApp,
+    fetchBuildOptions,
+    forceDeploy
 };

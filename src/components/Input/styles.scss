@@ -13,7 +13,7 @@
         margin-left: 4px;
     }
 
-    input {
+    input, textarea {
         margin-top: 5px;
         width: calc(100% - 15px);
         height: 32px;
@@ -31,6 +31,10 @@
         &:focus {
             border: 2px solid $primary;
         }
+    }
+
+    textarea {
+        min-height: 150px;
     }
 
     .input-grp {
