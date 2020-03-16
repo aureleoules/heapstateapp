@@ -15,6 +15,7 @@ type Props = {
     className?: string
     defaultValue?: string
     large?: boolean
+    inputClassName?: string
 }
 
 function el(props: any) {
@@ -30,7 +31,9 @@ export default function Input(props: Props) {
         onChange: props.onChange,
         name: props.name,
         id: props.id,
-        value: props.value === undefined ? props.defaultValue : props.value
+        value: props.value === undefined ? props.defaultValue : props.value,
+        className: props.inputClassName
+
     }
 
     return (

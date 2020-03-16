@@ -38,8 +38,12 @@ function Navbar(props: Props) {
                 name: t('Overview')
             },
             {
-                route: rootPath + '/builds',
+                route: rootPath + '/options',
                 name: t('Build settings')
+            },
+            {
+                route: rootPath + '/builds',
+                name: t('Builds')
             },
             {
                 route: rootPath + '/logs',

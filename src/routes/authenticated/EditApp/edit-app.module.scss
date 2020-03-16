@@ -45,6 +45,13 @@
 
     }
     .recent-builds {
-        
+        .builds {
+            margin-bottom: 15px;
+        }
+    }
+
+    .usage {
+        height: fit-content;
+        padding-bottom: 50px;
     }
 }

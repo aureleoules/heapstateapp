@@ -18,8 +18,11 @@ import Deploy from './routes/authenticated/Deploy';
 import Callback from './routes/authenticated/Callback';
 import { RouterState } from 'react-router-redux';
 import EditApp from './routes/authenticated/EditApp';
-import Builds from './routes/authenticated/Builds';
 import AppLogs from './routes/authenticated/AppLogs';
+import BuildSettings from './routes/authenticated/BuildSettings';
+import Builds from './routes/authenticated/Builds';
+import BuildDetails from './routes/authenticated/BuildDetails';
+
 
 function Router(props: any) {
     
@@ -47,8 +50,11 @@ function Router(props: any) {
                         <Route exact path="/deploy" component={Deploy}/>
                         
                         <Route exact path="/apps/:name" component={EditApp}/>
+                        <Route exact path="/apps/:name/options" component={BuildSettings}/>
+
                         <Route exact path="/apps/:name/builds" component={Builds}/>
                         <Route exact path="/apps/:name/logs" component={AppLogs}/>
+                        <Route exact path="/apps/:name/builds/:id" component={BuildDetails}/>
 
                         <Route exact path="/callback" component={Callback}/>
                     </React.Fragment>

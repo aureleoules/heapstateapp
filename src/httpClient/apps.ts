@@ -52,5 +52,13 @@ export default {
         }).catch(err => {
             reject(err);
         });
+    }),
+
+    fetchBuild: (name: string, id: string) => new Promise<Build>((resolve, reject) => {
+        axios.get(route + '/' + name + '/builds/'+ id).then(response => {
+            resolve(response.data.payload);
+        }).catch(err => {
+            reject(err);
+        });
     })
 }

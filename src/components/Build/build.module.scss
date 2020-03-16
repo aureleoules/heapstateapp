@@ -9,7 +9,7 @@
     border-radius: 8px;
     flex-direction: column;
     transition: background-color 0.15s;
-
+    justify-content: center;
     &.selected {
         &:hover {
             background-color: rgba($primary, 0.9);
@@ -42,5 +42,10 @@
     small {
         font-size: 0.9em;
         opacity: 0.8;
+    }
+
+    .action {
+        position: absolute;
+        right: 15px;
     }
 }

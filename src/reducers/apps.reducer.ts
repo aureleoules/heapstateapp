@@ -11,13 +11,15 @@ type Action = {
     apps: Array <App>
         app: App
     build_options: BuildOptions
-    builds: Array<Build>
+    builds: Array<Build>,
+    build: Build,
 }
 
 const defaultState = {
     apps: [],
     builds: [],
     app: null,
+    build: null,
     build_options: null,
     fetching: false,
     creating: false,
@@ -27,7 +29,8 @@ const defaultState = {
     deploy_error: null,
     deploying: false,
     deployed: false,
-    fetch_builds_error: null
+    fetch_builds_error: null,
+    fetch_build_error: null
 }
 
 export function apps(state = defaultState, action: Action) {
@@ -118,13 +121,34 @@ export function apps(state = defaultState, action: Action) {
             return {
                 ...state,
                 fetching: false,
-                builds: action.builds
+                builds: action.builds || []
             };
         case appConstants.FETCH_BUILDS_FAILURE:
             return {
                 ...state,
                 fetching: false,
                 fetch_builds_error: action.error
+            };
+
+
+
+        /* Fetch builds */
+        case appConstants.FETCH_BUILD_START:
+            return {
+                ...state,
+                fetching: true
+            };
+        case appConstants.FETCH_BUILD_SUCCESS:
+            return {
+                ...state,
+                fetching: false,
+                build: action.build
+            };
+        case appConstants.FETCH_BUILD_FAILURE:
+            return {
+                ...state,
+                fetching: false,
+                fetch_build_error: action.error
             };
 
             /* Force deploy */

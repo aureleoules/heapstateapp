@@ -67,7 +67,7 @@ function EditApp(props: any) {
 
                             <div className={styles.actions}>
                                 <Button small primary title={t('Open')}/>
-                                <Button href={`/apps/${name}/builds`} small primary title={t('Build settings')}/>
+                                <Button href={`/apps/${name}/options`} small primary title={t('Build settings')}/>
                                 <Button target="_blank" external href={`${app.complete_url}/blob/${app.build_options?.branch}/Dockerfile`} small title={t('Dockerfile')}/>
                             </div>
                         </div>
@@ -87,12 +87,13 @@ function EditApp(props: any) {
                             <h3>{t('Builds')}</h3>
                             <div className={styles.builds}>
                                 {builds.map((b, k) => (
-                                    <BuildView key={k} {...b}/>
+                                    <BuildView url={`/apps/${name}/builds/${b.id}`} key={k} build={b}/>
                                 ))}
                             </div>
+                            <Button href={`/apps/${name}/builds`} title={t('See all')}/>
                         </div>
 
-                        <div className={`container`}>
+                        <div className={`container ${styles.usage}`}>
                             <h3>{t('Usage')}</h3>
                             <Doughnut data={data}/>
                         </div>

@@ -4,18 +4,31 @@ import Build from '../../types/build';
 import {ReactComponent as CheckIcon} from '../../assets/svg/check.svg';
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime';
+import {ReactComponent as ChevronRight} from '../../assets/svg/chevron-right.svg';
+import { Link } from 'react-router-dom';
 dayjs.extend(relativeTime)
 
-function BuildView(props: Build) {
+type Props = {
+    build: Build,
+    url: string
+}
+
+function BuildView(props: Props) {
+
+    const build = props.build;
+
     return (
-        <div className={styles.build}>
+        <Link to={props.url} className={styles.build}>
             <p>
-                <CheckIcon className={styles.check}/> <span>{props.branch}@{props.commit_hash.substr(0, 8)}</span> 
+                <CheckIcon className={styles.check}/> <span>{build.branch}@{build.commit_hash.substr(0, 8)}</span> 
             </p>
             <small>
-                {dayjs(props.created_at).fromNow()}: {props.commit_message}
+                {dayjs(build.created_at).fromNow()}: {build.commit_message}
             </small>
-        </div>
+
+            <ChevronRight className={styles.action}/>
+
+        </Link>
     )
 }
 

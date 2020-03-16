@@ -1,21 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import Navbar from '../../../components/Navbar';
-
+import React, { useEffect } from 'react';
 import styles from './builds.module.scss';
-import { useTranslation } from 'react-i18next';
-import Input from '../../../components/Input';
-import Button from '../../../components/Button';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router';
-import { appActions } from '../../../actions';
-import App from '../../../types/app';
-import BuildOptions from '../../../types/build_options';
+import { useTranslation } from 'react-i18next';
+import Button from '../../../components/Button';
 
+import { appActions } from '../../../actions';
+import { useParams } from 'react-router';
+import Navbar from '../../../components/Navbar';
+import Build from '../../../types/build';
+import BuildView from '../../../components/Build';
 
 function Builds(props: any) {
 
     const {t} = useTranslation();
-    
     const dispatch = useDispatch();
 
     interface RootState {
@@ -23,50 +20,27 @@ function Builds(props: any) {
     }
     const appReducer: any = useSelector((state: RootState) => state.apps);
     
-    const buildOptions: BuildOptions = appReducer.build_options;
+    const builds: Array<Build> = appReducer.builds;
     
     const {name} = useParams();
 
     useEffect(() => {
-        dispatch(appActions.fetchBuildOptions(name!))
+        dispatch(appActions.fetchBuilds(name!))
     }, []);
-
-    const [branch, setBranch] = useState<string>();
-
-    function deploy() {
-        dispatch(appActions.forceDeploy(name!));
-    }
 
     return (
         <>
             <Navbar app/>
-            {appReducer.build_options && <div className={`${styles.builds} route`}>
-                <div className={`container ${styles.container}`}>
-                    <h3>{t('Builds settings')}</h3>
-                    <Input 
-                        defaultValue={buildOptions.branch}
-                        label={t('Branch')} 
-                        onChange={(e: any) => setBranch(e.target.value)}
-                        value={branch}
-                    />
-                    <div className={styles['env-vars']}>
-                        <h3>{t('Environnement variables')}</h3>
-                        <div className={styles['env-var']}>
-                            <Input className={styles.key} label={t('Key')}/>
-                            <Input className={styles.value} label={t('Value')}/>
-                        </div>
-                    </div>
-
-                    <div className={styles.actions}>
-                        <Button primary title={t('Save')}/>
-                        <Button onClick={deploy} title={t('Force deploy')}/>
+            <div className={`route ${styles.builds}`}>
+                <div className={`container`}>
+                    <h3>{t('Builds')}</h3>
+                    <div className={styles.builds}>
+                        {builds.map((b, k) => (
+                            <BuildView url={`/apps/${name}/builds/${b.id}`} key={k} build={b}/>
+                        ))}
                     </div>
                 </div>
-
-                <div className="container">
-                    <h3>{t('Recent builds')}</h3>
-                </div>
-            </div>}
+            </div>
         </>
     )
 }

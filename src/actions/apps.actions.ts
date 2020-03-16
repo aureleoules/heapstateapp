@@ -68,6 +68,22 @@ function fetchBuilds(name: string) {
     function failure(error: Error) { return { type: appConstants.FETCH_BUILDS_FAILURE, error } }
 }
 
+function fetchBuild(name: string, id: string) {
+    return (dispatch: any) => {
+        dispatch(request());
+
+        Client.Apps.fetchBuild(name, id).then(build => {
+            dispatch(success(build));
+        }).catch(err => {
+            dispatch(failure(err));
+        })
+    }
+
+    function request() { return { type: appConstants.FETCH_BUILD_START}}
+    function success(build: Build) { return { type: appConstants.FETCH_BUILD_SUCCESS, build} }
+    function failure(error: Error) { return { type: appConstants.FETCH_BUILD_FAILURE, error } }
+}
+
 function fetchBuildOptions(name: string) {
     return (dispatch: any) => {
         dispatch(request());
@@ -100,11 +116,13 @@ function forceDeploy(name: string) {
     function failure(error: Error) { return { type: appConstants.DEPLOY_FAILURE, error } }
 }
 
+
 export default {
     newApp,
     fetchApps,
     fetchApp,
     fetchBuildOptions,
     forceDeploy,
-    fetchBuilds
+    fetchBuilds,
+    fetchBuild
 };
