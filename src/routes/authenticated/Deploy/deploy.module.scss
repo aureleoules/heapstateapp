@@ -30,6 +30,17 @@
                 margin-bottom: 12px;
             }
 
+
+            .search {
+                margin-bottom: 15px;
+            }
+
+            .ram {
+                text-align: left;
+                margin-top: 15px;
+                margin-bottom: 15px;
+            }
+            
             .step {
                 text-align: center;
                 margin: 40px;
@@ -68,6 +79,12 @@
                     button {
                         margin: 8px;
                     }
+                }
+            }
+
+            .cost {
+                small {
+                    font-size: 0.85em;
                 }
             }
 

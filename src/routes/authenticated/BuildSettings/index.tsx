@@ -63,7 +63,7 @@ function BuildSettings(props: any) {
                 </div>
 
                 <div className="container">
-                    <h3>{t('Recent builds')}</h3>
+                    <h3>{t('Container options')}</h3>
                 </div>
             </div>}
         </>

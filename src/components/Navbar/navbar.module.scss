@@ -1,4 +1,7 @@
+@import "../../styles/theme";
+
 .navbar {
+
     width: 65%;
     margin: 0 auto;
     display: flex;
@@ -14,10 +17,42 @@
         }
     }
 
-    a.usertoggle {
+    .logo-beta {
+        display: flex;
+
+        p {
+            margin-left: 8px;
+            border: solid 1px #ff2763;
+            height: max-content;
+            padding: 4px 7px;
+            font-size: 0.9em;
+            border-radius: 4px;
+        }
+    }
+
+    .usertoggle {
         right: 0;
         top: 0;
         position: absolute;
+        display: flex;
+        align-items: center;
+
+        a.credits {
+            margin-right: 20px;
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
+            color: $light;
+            svg {
+                margin-left: 2px;
+                width: 16px;
+                height: 16px;
+                path {
+                    fill: $light;
+                }
+            }
+        }
+
         img {
             width: 35px;
         }

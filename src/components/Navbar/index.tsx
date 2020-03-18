@@ -10,6 +10,9 @@ import { Link, useParams, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { RouterState } from 'react-router-redux';
+import {ReactComponent as PlusIcon} from '../../assets/svg/plus-circle.svg';
+import {ReactComponent as SatoshiIcon} from '../../assets/svg/satoshi.svg';
+
 
 type Props = {
     app?: boolean
@@ -19,10 +22,12 @@ function Navbar(props: Props) {
     const {t} = useTranslation();
 
     interface RootState {
-        router: RouterState
+        router: RouterState,
+        users: any
     }
 
     const router: RouterState = useSelector((state: RootState) => state.router);
+    const users: any = useSelector((state: RootState) => state.users);
 
     let routes: Array<any>;
     
@@ -70,10 +75,22 @@ function Navbar(props: Props) {
     return (
         <div className={styles.navbar}>
             <div className={styles.top}>
-                <Logo link small primary/>
-                <a className={styles.usertoggle} href="#">
-                    <img src={Avatar}/>
-                </a>
+                <div className={styles['logo-beta']}>
+                    <Logo link small primary/>
+                    <p>BETA</p>
+                </div>
+                <div className={styles.usertoggle}>
+                    {users.profile && <Link className={styles.credits} to="/profile">
+                        {users.profile.credits.toLocaleString()} 
+                        <SatoshiIcon/>
+                        {/* <Link to="/profile">
+                            <PlusIcon/>
+                        </Link> */}
+                    </Link>}
+                    <Link to="/profile">
+                        <img src={Avatar}/>
+                    </Link>
+                </div>
             </div>
 
             <div className={styles.bottom}>

@@ -17,10 +17,13 @@ import Repository from '../../../components/Repository';
 
 import { Link } from 'react-router-dom';
 import App from '../../../types/app';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import BuildOptions from '../../../types/build_options';
 import {appActions} from '../../../actions';
 import Navbar from '../../../components/Navbar';
+import Slider, { Range } from 'rc-slider';
+import 'rc-slider/assets/index.css';
+import ContainerOptions from '../../../types/container_options';
 
 let token: string;
 
@@ -56,6 +59,7 @@ function Deploy(props: any) {
     const [validRepo, setValidRepo] = useState<boolean>(false);
     const [checkingDockerfile, setCheckingDockerfile] = useState<boolean>(false);
 
+    const [containerRAM, setContainerRAM] = useState<number>(256);
 
     const dispatch = useDispatch();
 
@@ -81,10 +85,20 @@ function Deploy(props: any) {
             fetchGitHubRepos();
         });
 
-        // setProvider(Provider.GitHub);
+        setProvider(Provider.GitHub);
 
-        // setRepos(sample);
-        // setFilteredRepos(sample);
+        const r: Array<any> = [
+            {
+                name: "aureleoules3",
+                owner: {
+                    login: "aureleoules"
+                }
+            }
+        ]
+
+        setRepos(r);
+        setFilteredRepos(r);
+        setSelectedRepo(r[0]);
     }, []);
 
     function selectRepo(repo: any) {
@@ -111,12 +125,17 @@ function Deploy(props: any) {
 
     function deployApp(e: any) {
 
+        const containerOptions: ContainerOptions = {
+            max_ram: containerRAM,
+        }
+
         const buildOptions: BuildOptions = {
             branch
         }
 
         const app: App = {
             token,
+            container_options: containerOptions,
             build_options: buildOptions,
             name: selectedRepo.name,
             owner: selectedRepo.owner.login,
@@ -125,6 +144,12 @@ function Deploy(props: any) {
 
         dispatch(appActions.newApp(app));
     }
+
+    interface RootState {
+        users: any
+    }
+
+    const users: any = useSelector((state: RootState) => state.users);
 
     return (
         <>
@@ -154,7 +179,7 @@ function Deploy(props: any) {
                                     <h3>{t('Repository')}</h3>
                                     <p>{t('Choose the repository you wish to deploy.')}</p>
                                     {!selectedRepo && <React.Fragment>
-                                        <Input value={filter} onChange={updateFilter} placeholder={t('Search')}/>
+                                        <Input className={deploy.search} value={filter} onChange={updateFilter} placeholder={t('Search')}/>
                                         <div className={deploy.repositories}>
                                             {filteredRepos.map((repo, k) => <Repository
                                                 onClick={() => selectRepo(repo)}
@@ -179,27 +204,57 @@ function Deploy(props: any) {
                                     </React.Fragment>}
                                 </div>}
                                     
-                                {provider !== Provider.None && selectedRepo && validRepo && <div className={deploy.step}>
-                                    <h3>{t('Deploy options')}</h3>
-                                    <p>{t('Configure deployment options for your app.')}</p>
-                                    <Input onChange={(e: any) => setBranch(e.target.value)} label={t("Branch")} value={branch} placeholder={t("Branch")}/>
-                                    <div className={deploy.submitButtons}>
-                                        <Button
-                                            external
-                                            href={`https://github.com/${selectedRepo.owner.login}/${selectedRepo.name}/blob/${branch}/Dockerfile`}
-                                            target="_blank"
-                                            title={"Dockerfile"}
-                                            width={"30%"}
-                                            disabled={!validRepo}
-                                        />
-                                        <Button
-                                            onClick={deployApp}
-                                            disabled={!validRepo}
-                                            title={t('Save')}
-                                            primary
-                                            width={"65%"}
+                                {provider !== Provider.None && selectedRepo && <div className={deploy.step}>
+                                    <h3>{t('Container options')}</h3>
+                                    <p>{t('Configure your heapstack container to your needs.')}</p>
+                                    <p className="bold">{t('8 MB / hour = 1 sat / hour')}</p>
+                                    
+                                    <div className={deploy.ram}>
+                                        <p>{t('Container RAM')}: {containerRAM} MB</p>
+                                        <Slider
+                                            trackStyle={{
+                                                backgroundColor: "#ff2763",
+                                            }} 
+                                            step={8} 
+                                            max={1024} 
+                                            min={8} 
+                                            value={containerRAM} 
+                                            onChange={value => setContainerRAM(value)}
+                                            handleStyle={{
+                                                borderColor: "#ff2763"
+                                            }}
                                         />
                                     </div>
+                                    <Input value={branch} onChange={(e: any) => setBranch(e.target.value)} label={t('Branch')}/>
+                                </div>}
+                                
+                                {provider !== Provider.None && selectedRepo && <div className={`${deploy.step} ${deploy.cost}`}>
+                                    <h3>{t('Cost')}</h3>
+                                    <p>{t('You pay only for the time your container is running.')}</p>
+
+                                    
+                                    <p>{containerRAM / 8} sats / <small>h</small></p>
+                                    <p className="bold">{t('or approximately')}</p>
+                                    <p>{((containerRAM / 8) * 31 * 24).toLocaleString()} sats / <small>{t('month')}</small></p>
+                                </div>}
+                                
+
+                                {provider !== Provider.None && selectedRepo && <div className={`${deploy.submitButtons} ${deploy.step}`}>
+                                    <Button
+                                        external
+                                        href={`https://github.com/${selectedRepo.owner.login}/${selectedRepo.name}/blob/${branch}/Dockerfile`}
+                                        target="_blank"
+                                        title={"Dockerfile"}
+                                        width={"30%"}
+                                        disabled={!validRepo}
+                                    />
+                                    <Button
+                                        onClick={deployApp}
+                                        disabled={!validRepo}
+                                        title={t('Deploy')}
+                                        primary
+                                        width={"65%"}
+                                    />
                                 </div>}
                             </div>
                         </div>

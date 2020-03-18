@@ -29,7 +29,7 @@ export default function Logo(props: Props) {
                 : <h1 
                     className={props.primary ? "primary" : ""}>
                        heapstack
-                    </h1>
+                </h1>
             )}
         </div>
     )

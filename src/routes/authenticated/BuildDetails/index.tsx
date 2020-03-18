@@ -49,7 +49,7 @@ function BuildDetails(props: any) {
                         large 
                         label={t('Logs')} 
                         disabled 
-                        value={build.logs.map(l => l === "" ? "\n" : l).join("\n")}/>
+                        value={build.logs.join("\n")}/>
                 </div>}
             </div>
         </>

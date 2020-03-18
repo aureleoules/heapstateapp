@@ -1,8 +1,8 @@
 import {userConstants} from '../constants/user.constants';
 import Client from '../httpClient';
 import history from '../history';
-import User from '../types/user';
 import { setJwt } from '../utils/jwt';
+import UserProfile from '../types/user.profile';
 
 function authenticate(email: string, password: string) {
     return (dispatch: any) => {
@@ -29,8 +29,8 @@ function register(email: string, password: string) {
         dispatch(request(email));
 
         Client.Users.register(email, password)
-            .then((user: User) => {
-                dispatch(success(user));
+            .then((profile: UserProfile) => {
+                dispatch(success(profile));
                 history.push('/');
             })
             .catch((err: Error) => {
@@ -39,11 +39,29 @@ function register(email: string, password: string) {
     }
 
     function request(email: string) { return { type: userConstants.REGISTER_REQUEST, email } }
-    function success(user: User) { return { type: userConstants.REGISTER_SUCCESS, user } }
+    function success(profile: UserProfile) { return { type: userConstants.REGISTER_SUCCESS, profile } }
     function failure(error: Error) { return { type: userConstants.REGISTER_FAILURE, error } }
+}
+
+function fetchProfile() {
+    return (dispatch: any) => {
+        dispatch(request());
+
+        Client.Users.fetchProfile()
+            .then((profile: UserProfile) => {
+                dispatch(success(profile));
+            }).catch((err: Error) => {
+                dispatch(failure(err));
+            });
+
+        function request() { return { type: userConstants.FETCH_PROFILE_START } }
+        function success(profile: UserProfile) { return { type: userConstants.FETCH_PROFILE_SUCCESS, profile } }
+        function failure(error: Error) { return { type: userConstants.FETCH_PROFILE_FAILURE, error } }
+    }
 }
 
 export default {
     authenticate,
     register,
+    fetchProfile
 };

@@ -6,6 +6,7 @@ import {ReactComponent as ChevronRight} from '../../assets/svg/chevron-right.svg
 
 import {ReactComponent as CheckIcon} from '../../assets/svg/check.svg';
 import {ReactComponent as CrossIcon} from '../../assets/svg/x.svg';
+import dayjs from 'dayjs';
 
 type Props = {
     app: AppType,
@@ -26,8 +27,8 @@ function App(props: Props) {
                     <small>{app.url}</small>
                 </div>
                 <div className={styles.lastdeploy}>
-                    <p>6.53 MB / 64 MB</p>
-                    <small>Last build: 3 months ago</small>
+                    <p>6.53 MB / {app.container_options?.max_ram} MB</p>
+                    <small>{t('Last build')} {dayjs(app.last_build?.created_at).fromNow()}</small>
                 </div>
             </div>
             <ChevronRight className={styles.action}/>

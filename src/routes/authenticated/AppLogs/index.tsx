@@ -55,7 +55,11 @@ function AppLogs(props: any) {
             <div className={`route ${styles.logs}`}>
                 <div className={`container ${styles['logs-container']}`}>
                     <h3>{t('Logs')}</h3>
-                    <Input large disabled value={sample}/>
+                    <Input 
+                        inputClassName={"log-box"} 
+                        large 
+                        disabled 
+                        value={sample}/>
                 </div>
             </div>
         </>
