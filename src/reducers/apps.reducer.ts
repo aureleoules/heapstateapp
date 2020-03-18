@@ -4,6 +4,7 @@ import {
 import App from '../types/app';
 import BuildOptions from '../types/build_options';
 import Build from '../types/build';
+import ContainerStats from '../types/container_stats';
 
 type Action = {
     type: string
@@ -11,14 +12,17 @@ type Action = {
     apps: Array <App>
         app: App
     build_options: BuildOptions
-    builds: Array<Build>,
-    build: Build,
+    builds: Array<Build>
+    build: Build
+
+    stats: ContainerStats
 }
 
 const defaultState = {
     apps: [],
     builds: [],
     app: null,
+    stats: null,
     build: null,
     build_options: null,
     fetching: false,
@@ -30,7 +34,8 @@ const defaultState = {
     deploying: false,
     deployed: false,
     fetch_builds_error: null,
-    fetch_build_error: null
+    fetch_build_error: null,
+    fetch_stats_error: null
 }
 
 export function apps(state = defaultState, action: Action) {
@@ -151,7 +156,7 @@ export function apps(state = defaultState, action: Action) {
                 fetch_build_error: action.error
             };
 
-            /* Force deploy */
+        /* FORCE DEPLOY */
         case appConstants.DEPLOY_START:
             return {
                 ...state,
@@ -168,6 +173,25 @@ export function apps(state = defaultState, action: Action) {
                 ...state,
                 deploying: false,
                 deploy_error: action.error
+            };
+
+        /* FETCH STATS */
+        case appConstants.FETCH_STATS_START:
+            return {
+                ...state,
+                fetching: true
+            };
+        case appConstants.FETCH_STATS_SUCCESS:
+            return {
+                ...state,
+                fetching: false,
+                stats: action.stats
+            };
+        case appConstants.FETCH_STATS_FAILURE:
+            return {
+                ...state,
+                fetching: false,
+                fetch_stats_error: action.error
             };
 
         default:

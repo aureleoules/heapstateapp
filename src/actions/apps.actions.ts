@@ -3,6 +3,7 @@ import history from '../history';
 import { appConstants } from '../constants/app.constants';
 import App from '../types/app';
 import Build from '../types/build';
+import ContainerStats from '../types/container_stats';
 
 function newApp(app: App) {
     return (dispatch: any) => {
@@ -116,6 +117,21 @@ function forceDeploy(name: string) {
     function failure(error: Error) { return { type: appConstants.DEPLOY_FAILURE, error } }
 }
 
+function fetchStats(name: string) {
+    return (dispatch: any) => {
+        dispatch(request());
+
+        Client.Apps.fetchStats(name).then((stats: ContainerStats) => {
+            dispatch(success(stats));
+        }).catch(err => {
+            dispatch(failure(err));
+        });
+    }
+
+    function request() { return { type: appConstants.FETCH_STATS_START}}
+    function success(stats: ContainerStats) { return { type: appConstants.FETCH_STATS_SUCCESS, stats}}
+    function failure(error: Error) { return { type: appConstants.FETCH_STATS_FAILURE, error } }
+}
 
 export default {
     newApp,
@@ -124,5 +140,6 @@ export default {
     fetchBuildOptions,
     forceDeploy,
     fetchBuilds,
-    fetchBuild
+    fetchBuild,
+    fetchStats
 };

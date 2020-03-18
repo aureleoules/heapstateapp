@@ -27,7 +27,7 @@ function App(props: Props) {
                     <small>{app.url}</small>
                 </div>
                 <div className={styles.lastdeploy}>
-                    <p>6.53 MB / {app.container_options?.max_ram} MB</p>
+                    <p>{app.container_options?.max_ram} MB</p>
                     <small>{t('Last build')} {dayjs(app.last_build?.created_at).fromNow()}</small>
                 </div>
             </div>

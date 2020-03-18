@@ -2,6 +2,7 @@ import axios from 'axios';
 import App from '../types/app';
 import BuildOptions from '../types/build_options';
 import Build from '../types/build';
+import ContainerStats from '../types/container_stats';
 
 const route = "/apps";
 
@@ -56,6 +57,14 @@ export default {
 
     fetchBuild: (name: string, id: string) => new Promise<Build>((resolve, reject) => {
         axios.get(route + '/' + name + '/builds/'+ id).then(response => {
+            resolve(response.data.payload);
+        }).catch(err => {
+            reject(err);
+        });
+    }),
+
+    fetchStats: (name: string) => new Promise<ContainerStats>((resolve, reject) => {
+        axios.get(route + '/' + name + '/stats').then(response => {
             resolve(response.data.payload);
         }).catch(err => {
             reject(err);

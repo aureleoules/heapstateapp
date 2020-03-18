@@ -28,7 +28,7 @@ function Apps(props: any) {
     }
 
     const appsReducer: any = useSelector((state: RootState) => state.apps);
-    console.log("apps", appsReducer.apps);
+
     return (
         <>
             <Navbar/>

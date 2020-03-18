@@ -15,23 +15,9 @@ import { Doughnut } from 'react-chartjs-2';
 import { Providers } from '../../../types/provider';
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime';
-dayjs.extend(relativeTime)
-
-const data = {
-	labels: [
-        'Used RAM (MB)',
-        'Available RAM (MB)'
-	],
-	datasets: [{
-		data: [180, 76],
-		backgroundColor: [
-            '#ff2763'
-		],
-		hoverBackgroundColor: [
-            '#FF6384'
-		]
-	}]
-};
+import ContainerStats from '../../../types/container_stats';
+import { round } from '../../../utils/maths';
+dayjs.extend(relativeTime);
 
 function EditApp(props: any) {
     
@@ -50,7 +36,25 @@ function EditApp(props: any) {
     useEffect(() => {
         dispatch(appActions.fetchApp(name!))
         dispatch(appActions.fetchBuilds(name!))
+        dispatch(appActions.fetchStats(name!));
     }, []);
+
+    const stats: ContainerStats = appReducer.stats;
+    const data = appReducer.stats ? {
+        labels: [
+            'Used RAM (MB)',
+            'Available RAM (MB)'
+        ],
+        datasets: [{
+            data: [round(stats.ram_usage), round(stats.max_ram - stats.ram_usage)],
+            backgroundColor: [
+                '#ff2763'
+            ],
+            hoverBackgroundColor: [
+                '#FF6384'
+            ]
+        }]
+    } : {};
 
     return (
         <>
