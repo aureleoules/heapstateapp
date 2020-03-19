@@ -23,6 +23,7 @@ import Builds from './routes/authenticated/Builds';
 import BuildDetails from './routes/authenticated/BuildDetails';
 import Profile from './routes/authenticated/Profile';
 import { userActions } from './actions';
+import Container from './routes/authenticated/Container';
 
 
 function Router(props: any) {
@@ -61,6 +62,7 @@ function Router(props: any) {
 
                         <Route exact path="/apps/:name" component={EditApp}/>
                         <Route exact path="/apps/:name/options" component={BuildSettings}/>
+                        <Route exact path="/apps/:name/container" component={Container}/>
 
                         <Route exact path="/apps/:name/builds" component={Builds}/>
                         <Route exact path="/apps/:name/logs" component={AppLogs}/>

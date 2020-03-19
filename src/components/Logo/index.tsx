@@ -24,11 +24,11 @@ export default function Logo(props: Props) {
                 <Link 
                     to="/" 
                     className={props.primary ? "primary" : ""}>
-                        heapstack
+                        heapstate
                 </Link>
                 : <h1 
                     className={props.primary ? "primary" : ""}>
-                       heapstack
+                       heapstate
                 </h1>
             )}
         </div>

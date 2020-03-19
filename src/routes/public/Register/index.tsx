@@ -32,7 +32,7 @@ export default function Register() {
             <Logo absolute image/>
 
 
-            <div className="register-to-heapstack">
+            <div className="register-to-heapstate">
                 <span>{t('Sign up to')} </span> <Logo primary/>
             </div>
             <div className="register-container">

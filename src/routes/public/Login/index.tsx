@@ -31,7 +31,7 @@ function Login() {
 
             <Logo absolute image/>
 
-            <div className="login-to-heapstack">
+            <div className="login-to-heapstate">
                 <span>{t('Login to')} </span> <Logo primary/>
             </div>
             <div className="login-container">

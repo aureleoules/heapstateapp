@@ -61,10 +61,6 @@ function BuildSettings(props: any) {
                         <Button onClick={deploy} title={t('Force deploy')}/>
                     </div>
                 </div>
-
-                <div className="container">
-                    <h3>{t('Container options')}</h3>
-                </div>
             </div>}
         </>
     )

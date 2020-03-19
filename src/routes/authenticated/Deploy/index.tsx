@@ -158,7 +158,7 @@ function Deploy(props: any) {
                 <div className={deploy.container}>
                     <div className={deploy.deployment}>
                         <h2>{t('Deploy an app')}</h2>
-                        <p>{t('Deploy your application on heapstack in three simple steps.')}</p>
+                        <p>{t('Deploy your application on heapstate in three simple steps.')}</p>
                         <div className={deploy.chooser}>
                             <div className={deploy.steps}>
                                 <div className={deploy.step}>
@@ -206,7 +206,7 @@ function Deploy(props: any) {
                                     
                                 {provider !== Provider.None && selectedRepo && <div className={deploy.step}>
                                     <h3>{t('Container options')}</h3>
-                                    <p>{t('Configure your heapstack container to your needs.')}</p>
+                                    <p>{t('Configure your heapstate container to your needs.')}</p>
                                     <p className="bold">{t('8 MB / hour = 1 sat / hour')}</p>
                                     
                                     <div className={deploy.ram}>

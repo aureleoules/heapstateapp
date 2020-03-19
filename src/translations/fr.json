@@ -1,5 +1,5 @@
 {
-    "app_name": "heapstack",
+    "app_name": "heapstate",
     "Register to": "Créer un compte",
     "Login to": "Se connecter à",
     "Sign up to": "Créer un compte",
@@ -19,7 +19,7 @@
     "Configure deployment options for your app.": "Configurer les options de déploiement.",
     "Deploy options": "Options de déploiement",
     "Branch": "Branche",
-    "Deploy your application on heapstack in three simple steps.": "Déployez votre application sur heapstack en trois étapes.",
+    "Deploy your application on heapstate in three simple steps.": "Déployez votre application sur heapstate en trois étapes.",
     "Provider": "Hébergeur",
     "Select your Git provider. This is where your code is hosted.": "Sélectionnez votre hébergeur Git. C'est là où votre code est hébergé.",
     "Repository": "Projet",

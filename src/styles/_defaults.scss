@@ -52,7 +52,6 @@ p.error {
         display: flex;
         justify-content: space-between;
         flex-direction: row;
-
         .container-left, .container-right {
             width: 100%;
         }
@@ -77,6 +76,7 @@ p.error {
 
     .container {
         width: 100%;
+        height: fit-content;
 
         margin-top: 0;
         &:nth-child(1) {

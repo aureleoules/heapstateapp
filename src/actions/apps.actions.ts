@@ -4,6 +4,7 @@ import { appConstants } from '../constants/app.constants';
 import App from '../types/app';
 import Build from '../types/build';
 import ContainerStats from '../types/container_stats';
+import ContainerOptions from '../types/container_options';
 
 function newApp(app: App) {
     return (dispatch: any) => {
@@ -133,6 +134,45 @@ function fetchStats(name: string) {
     function failure(error: Error) { return { type: appConstants.FETCH_STATS_FAILURE, error } }
 }
 
+function fetchLogs(name: string) {
+    return (dispatch: any) => {
+        dispatch(request());
+
+        Client.Apps.fetchLogs(name).then((logs: string) => {
+            dispatch(success(logs));
+        }).catch(err => {
+            dispatch(failure(err));
+        });
+    }
+
+    function request() { return { type: appConstants.FETCH_LOGS_START}}
+    function success(logs: string) { return { type: appConstants.FETCH_LOGS_SUCCESS, logs}}
+    function failure(error: Error) { return { type: appConstants.FETCH_LOGS_FAILURE, error } }
+}
+
+function fetchContainerOptions(name: string) {
+    return (dispatch: any) => {
+        dispatch(request());
+
+        Client.Apps.fetchContainerOptions(name).then((containerOptions: ContainerOptions) => {
+            dispatch(success(containerOptions));
+        }).catch(err => {
+            dispatch(failure(err));
+        });
+    }
+
+    function request() { return { type: appConstants.FETCH_CONTAINER_OPTIONS_START}}
+    function success(container_options: ContainerOptions) { return { type: appConstants.FETCH_CONTAINER_OPTIONS_SUCCESS, container_options}}
+    function failure(error: Error) { return { type: appConstants.FETCH_CONTAINER_OPTIONS_FAILURE, error } }
+}
+
+function setContainerRAM(max_ram: number) {
+    return {
+        type: appConstants.SET_CONTAINER_RAM,
+        max_ram
+    }
+}
+
 export default {
     newApp,
     fetchApps,
@@ -141,5 +181,8 @@ export default {
     forceDeploy,
     fetchBuilds,
     fetchBuild,
-    fetchStats
+    fetchStats,
+    fetchLogs,
+    fetchContainerOptions,
+    setContainerRAM
 };

@@ -1,2 +1,2 @@
-# heapstack
-> heapstack builds and deploys your apps effortlessly
+# heapstate
+> heapstate builds and deploys your apps effortlessly

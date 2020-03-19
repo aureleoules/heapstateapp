@@ -43,6 +43,10 @@ function Navbar(props: Props) {
                 name: t('Overview')
             },
             {
+                route: rootPath + '/container',
+                name: t('Container'),
+            },
+            {
                 route: rootPath + '/options',
                 name: t('Build settings')
             },

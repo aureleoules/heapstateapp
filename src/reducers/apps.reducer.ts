@@ -5,17 +5,21 @@ import App from '../types/app';
 import BuildOptions from '../types/build_options';
 import Build from '../types/build';
 import ContainerStats from '../types/container_stats';
+import ContainerOptions from '../types/container_options';
 
 type Action = {
     type: string
     error: Error
     apps: Array <App>
-        app: App
+    app: App
     build_options: BuildOptions
     builds: Array<Build>
     build: Build
+    container_options: ContainerOptions
 
-    stats: ContainerStats
+    stats: ContainerStats,
+    logs: string
+    max_ram: number
 }
 
 const defaultState = {
@@ -25,6 +29,7 @@ const defaultState = {
     stats: null,
     build: null,
     build_options: null,
+    container_options: null,
     fetching: false,
     creating: false,
     created: false,
@@ -35,7 +40,11 @@ const defaultState = {
     deployed: false,
     fetch_builds_error: null,
     fetch_build_error: null,
-    fetch_stats_error: null
+    fetch_stats_error: null,
+    logs: "",
+    fetch_logs_error: null,
+    container_options_error: null,
+    max_ram: 0
 }
 
 export function apps(state = defaultState, action: Action) {
@@ -185,7 +194,8 @@ export function apps(state = defaultState, action: Action) {
             return {
                 ...state,
                 fetching: false,
-                stats: action.stats
+                stats: action.stats,
+                max_ram: action.stats.max_ram
             };
         case appConstants.FETCH_STATS_FAILURE:
             return {
@@ -193,6 +203,50 @@ export function apps(state = defaultState, action: Action) {
                 fetching: false,
                 fetch_stats_error: action.error
             };
+
+        /* FETCH LOGS */
+        case appConstants.FETCH_LOGS_START:
+            return {
+                ...state,
+                fetching: true
+            };
+        case appConstants.FETCH_LOGS_SUCCESS:
+            return {
+                ...state,
+                fetching: false,
+                logs: action.logs
+            };
+        case appConstants.FETCH_LOGS_FAILURE:
+            return {
+                ...state,
+                fetching: false,
+                fetch_logs_error: action.error
+            };
+
+        /* FETCH CONTAINER OPTIONS */
+        case appConstants.FETCH_CONTAINER_OPTIONS_START:
+            return {
+                ...state,
+                fetching: true
+            };
+        case appConstants.FETCH_CONTAINER_OPTIONS_SUCCESS:
+            return {
+                ...state,
+                fetching: false,
+                container_options: action.container_options
+            };
+        case appConstants.FETCH_LOGS_FAILURE:
+            return {
+                ...state,
+                fetching: false,
+                fetch_container_options_error: action.error
+            };
+
+        case appConstants.SET_CONTAINER_RAM:
+            return {
+                ...state,
+                max_ram: action.max_ram
+            }
 
         default:
             return state

@@ -17,6 +17,7 @@ import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime';
 import ContainerStats from '../../../types/container_stats';
 import { round } from '../../../utils/maths';
+import ContainerStatsView from '../../../components/ContainerStats';
 dayjs.extend(relativeTime);
 
 function EditApp(props: any) {
@@ -77,7 +78,7 @@ function EditApp(props: any) {
                         </div>
                         <div className="container-right relative">
                             <h3>{t('Actions')}</h3>
-                            <p>{t('Control your heapstack container.')}</p>
+                            <p>{t('Control your heapstate container.')}</p>
                             <div className={`${styles.actions} ${styles.bottom}`}>
                                 <Button small primary title={t('Resize')}/>
                                 <Button small title={t('Restart')}/>
@@ -99,7 +100,7 @@ function EditApp(props: any) {
 
                         <div className={`container ${styles.usage}`}>
                             <h3>{t('Usage')}</h3>
-                            <Doughnut data={data}/>
+                            {stats && <ContainerStatsView max_ram={stats.max_ram} ram_usage={stats.ram_usage}/>}
                         </div>
                     </div>
                 </div>}
