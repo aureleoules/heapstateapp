@@ -173,6 +173,54 @@ function setContainerRAM(max_ram: number) {
     }
 }
 
+function startApp(name: string) {
+    return (dispatch: any) => {
+        dispatch(request());
+
+        Client.Apps.startApp(name).then(() => {
+            dispatch(success());
+        }).catch(err => {
+            dispatch(failure(err));
+        });
+    }
+
+    function request() { return { type: appConstants.START_APP_START}}
+    function success() { return { type: appConstants.START_APP_SUCCESS}}
+    function failure(error: Error) { return { type: appConstants.START_APP_FAILURE, error } }
+}
+
+function restartApp(name: string) {
+    return (dispatch: any) => {
+        dispatch(request());
+
+        Client.Apps.restartApp(name).then(() => {
+            dispatch(success());
+        }).catch(err => {
+            dispatch(failure(err));
+        });
+    }
+
+    function request() { return { type: appConstants.RESTART_APP_START}}
+    function success() { return { type: appConstants.RESTART_APP_SUCCESS}}
+    function failure(error: Error) { return { type: appConstants.RESTART_APP_FAILURE, error } }
+}
+
+function stopApp(name: string) {
+    return (dispatch: any) => {
+        dispatch(request());
+
+        Client.Apps.stopApp(name).then(() => {
+            dispatch(success());
+        }).catch(err => {
+            dispatch(failure(err));
+        });
+    }
+
+    function request() { return { type: appConstants.STOP_APP_START}}
+    function success() { return { type: appConstants.STOP_APP_SUCCESS}}
+    function failure(error: Error) { return { type: appConstants.STOP_APP_FAILURE, error } }
+}
+
 export default {
     newApp,
     fetchApps,
@@ -184,5 +232,8 @@ export default {
     fetchStats,
     fetchLogs,
     fetchContainerOptions,
-    setContainerRAM
+    setContainerRAM,
+    startApp,
+    stopApp,
+    restartApp
 };

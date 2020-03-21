@@ -85,5 +85,27 @@ export default {
         }).catch(err => {
             reject(err);
         });
-    })
+    }),
+    startApp: (name: string) => new Promise<void>((resolve, reject) => {
+        axios.post(route + '/' + name + '/start').then(response => {
+            resolve(response.data.payload);
+        }).catch(err => {
+            reject(err);
+        });
+    }),
+    restartApp: (name: string) => new Promise<void>((resolve, reject) => {
+        axios.post(route + '/' + name + '/restart').then(response => {
+            resolve(response.data.payload);
+        }).catch(err => {
+            reject(err);
+        });
+    }),
+
+    stopApp: (name: string) => new Promise<void>((resolve, reject) => {
+        axios.post(route + '/' + name + '/stop').then(response => {
+            resolve(response.data.payload);
+        }).catch(err => {
+            reject(err);
+        });
+    }),
 }

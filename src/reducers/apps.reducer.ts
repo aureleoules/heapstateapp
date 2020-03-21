@@ -242,11 +242,72 @@ export function apps(state = defaultState, action: Action) {
                 fetch_container_options_error: action.error
             };
 
+
+        /* SET CONTAINER NAME */
         case appConstants.SET_CONTAINER_RAM:
             return {
                 ...state,
                 max_ram: action.max_ram
             }
+
+        /* START APP */
+        case appConstants.START_APP_START:
+            return {
+                ...state,
+                starting: true,
+            };
+        case appConstants.START_APP_SUCCESS:
+            return {
+                ...state,
+                starting: false,
+                started: true,
+            };
+        case appConstants.START_APP_FAILURE:
+            return {
+                ...state,
+                starting: false,
+                start_error: action.error
+            };
+
+        /* RESTART APP */
+        case appConstants.RESTART_APP_START:
+            return {
+                ...state,
+                starting: true,
+                started: false
+            };
+        case appConstants.RESTART_APP_SUCCESS:
+            return {
+                ...state,
+                starting: false,
+                started: true,
+            };
+        case appConstants.RESTART_APP_FAILURE:
+            return {
+                ...state,
+                starting: false,
+                start_error: action.error
+            };
+
+        /* STOP APP */
+        case appConstants.RESTART_APP_START:
+            return {
+                ...state,
+                stopping: true,
+                stopped: false
+            };
+        case appConstants.RESTART_APP_SUCCESS:
+            return {
+                ...state,
+                stopping: false,
+                stopped: true,
+            };
+        case appConstants.RESTART_APP_FAILURE:
+            return {
+                ...state,
+                stopping: false,
+                start_error: action.error
+            };
 
         default:
             return state
