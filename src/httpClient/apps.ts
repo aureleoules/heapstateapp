@@ -108,4 +108,11 @@ export default {
             reject(err);
         });
     }),
+    saveContainerOptions: (name: string, options: ContainerOptions) => new Promise<void>((resolve, reject) => {
+        axios.put(route + '/' + name + '/containeroptions', options).then(response => {
+            resolve(response.data.payload);
+        }).catch(err => {
+            reject(err);
+        });
+    })
 }

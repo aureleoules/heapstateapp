@@ -221,6 +221,22 @@ function stopApp(name: string) {
     function failure(error: Error) { return { type: appConstants.STOP_APP_FAILURE, error } }
 }
 
+function saveContainerOptions(name: string, container_options: ContainerOptions) {
+    return (dispatch: any) => {
+        dispatch(request());
+
+        Client.Apps.saveContainerOptions(name, container_options).then(() => {
+            dispatch(success());
+        }).catch(err => {
+            dispatch(failure(err));
+        });
+    }
+
+    function request() { return { type: appConstants.SAVE_CONTAINER_OPTIONS_START}}
+    function success() { return { type: appConstants.SAVE_CONTAINER_OPTIONS_SUCCESS}}
+    function failure(error: Error) { return { type: appConstants.SAVE_CONTAINER_OPTIONS_FAILURE, error } }
+}
+
 export default {
     newApp,
     fetchApps,
@@ -235,5 +251,7 @@ export default {
     setContainerRAM,
     startApp,
     stopApp,
-    restartApp
+    restartApp,
+    saveContainerOptions
 };
+

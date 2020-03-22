@@ -26,6 +26,8 @@ const defaultState = {
     apps: [],
     builds: [],
     app: null,
+    saving: false,
+    saved: false,
     stats: null,
     build: null,
     build_options: null,
@@ -44,6 +46,7 @@ const defaultState = {
     logs: "",
     fetch_logs_error: null,
     container_options_error: null,
+    save_container_options_error: null,
     max_ram: 0
 }
 
@@ -125,7 +128,7 @@ export function apps(state = defaultState, action: Action) {
                 fetch_build_options_error: action.error
             };
 
-                /* Fetch builds */
+        /* Fetch builds */
         case appConstants.FETCH_BUILDS_START:
             return {
                 ...state,
@@ -194,8 +197,7 @@ export function apps(state = defaultState, action: Action) {
             return {
                 ...state,
                 fetching: false,
-                stats: action.stats,
-                max_ram: action.stats.max_ram
+                stats: action.stats
             };
         case appConstants.FETCH_STATS_FAILURE:
             return {
@@ -233,7 +235,8 @@ export function apps(state = defaultState, action: Action) {
             return {
                 ...state,
                 fetching: false,
-                container_options: action.container_options
+                container_options: action.container_options,
+                max_ram: action.container_options.max_ram
             };
         case appConstants.FETCH_LOGS_FAILURE:
             return {
@@ -307,6 +310,26 @@ export function apps(state = defaultState, action: Action) {
                 ...state,
                 stopping: false,
                 start_error: action.error
+            };
+
+
+        /* SAVE CONTAINER OPTIONS */
+        case appConstants.SAVE_CONTAINER_OPTIONS_START:
+            return {
+                ...state,
+                saving: true
+            };
+        case appConstants.SAVE_CONTAINER_OPTIONS_SUCCESS:
+            return {
+                ...state,
+                saving: false,
+                saved: true
+            };
+        case appConstants.SAVE_CONTAINER_OPTIONS_FAILURE:
+            return {
+                ...state,
+                saving: false,
+                save_container_options_error: action.error
             };
 
         default:

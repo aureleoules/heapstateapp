@@ -16,7 +16,7 @@ import { Providers } from '../../../types/provider';
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime';
 import ContainerStats from '../../../types/container_stats';
-import { round } from '../../../utils/maths';
+import { round, formatBytes } from '../../../utils/maths';
 import ContainerStatsView from '../../../components/ContainerStats';
 dayjs.extend(relativeTime);
 
@@ -57,6 +57,18 @@ function EditApp(props: any) {
         }]
     } : {};
 
+    function start() {
+        dispatch(appActions.startApp(name!));
+    }
+
+    function restart() {
+        dispatch(appActions.restartApp(name!));
+    }
+
+    function stop() {
+        dispatch(appActions.stopApp(name!));
+    }
+
     return (
         <>
             <Navbar app/>
@@ -80,9 +92,9 @@ function EditApp(props: any) {
                             <h3>{t('Actions')}</h3>
                             <p>{t('Control your heapstate container.')}</p>
                             <div className={`${styles.actions} ${styles.bottom}`}>
-                                <Button small primary title={t('Resize')}/>
-                                <Button small title={t('Restart')}/>
-                                <Button small title={t('Stop')}/>
+                                <Button onClick={start} small primary title={t('Start')}/>
+                                <Button onClick={restart} small title={t('Restart')}/>
+                                <Button onClick={stop} small title={t('Stop')}/>
                                 <Button href={`/apps/${name}/logs`} small title={t('View logs')}/>
                             </div>
                         </div>
@@ -100,7 +112,7 @@ function EditApp(props: any) {
 
                         <div className={`container ${styles.usage}`}>
                             <h3>{t('Usage')}</h3>
-                            {stats && <ContainerStatsView max_ram={stats.max_ram} ram_usage={stats.ram_usage}/>}
+                            {stats && <ContainerStatsView max_ram={formatBytes(stats.max_ram)} ram_usage={formatBytes(stats.ram_usage)}/>}
                         </div>
                     </div>
                 </div>}

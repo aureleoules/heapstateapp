@@ -12,6 +12,7 @@ import ContainerOptions from '../../../types/container_options';
 import Button from '../../../components/Button';
 import ContainerStatsView from '../../../components/ContainerStats';
 import { stat } from 'fs';
+import { formatBytes } from '../../../utils/maths';
 
 function Container(props: any) {
 
@@ -35,6 +36,16 @@ function Container(props: any) {
     const containerOptions: ContainerOptions = appReducer.container_options;
     const max_ram: number = appReducer.max_ram;
     
+
+    function save() {
+
+        const containerOptions: ContainerOptions = {
+            max_ram
+        }
+
+        dispatch(appActions.saveContainerOptions(name!, containerOptions));
+    }
+
     return (
         <>
             <Navbar app/>
@@ -45,16 +56,16 @@ function Container(props: any) {
                         <p>{t('Configure your heapstate container to your needs.')}</p>
                         <div className={styles.ram}>
                             <p>
-                                RAM: {max_ram} MB<br/>
-                                {t('Price')}: {max_ram / 8} sats / h
+                                RAM: {formatBytes(max_ram)} MB<br/>
+                                {t('Price')}: {max_ram / 1024 / 1024 / 8} sats / h
                             </p>
                             <Slider
                                 trackStyle={{
                                     backgroundColor: "#ff2763",
                                 }} 
-                                step={8} 
-                                max={1024} 
-                                min={8} 
+                                step={8 * 1024 * 1024} 
+                                max={1024 * 1024 * 1024} 
+                                min={8 * 1024 * 1024} 
                                 value={max_ram}
                                 onChange={value => dispatch(appActions.setContainerRAM(value))}
                                 handleStyle={{
@@ -62,11 +73,11 @@ function Container(props: any) {
                                 }}
                             />
                         </div>
-                        <Button primary title={t('Save')}/>
+                        <Button onClick={save} primary title={t('Save')}/>
                     </div>
                     <div className="container">
                         <h3>{t('Container usage')}</h3>
-                        {stats && <ContainerStatsView max_ram={stats.max_ram} ram_usage={stats.ram_usage}/>}
+                        {stats && <ContainerStatsView max_ram={formatBytes(stats.max_ram)} ram_usage={formatBytes(stats.ram_usage)}/>}
                     </div>
                 </div>}
             </div>
