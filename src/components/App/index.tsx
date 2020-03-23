@@ -4,9 +4,12 @@ import AppType from '../../types/app';
 import { useTranslation } from 'react-i18next';
 import {ReactComponent as ChevronRight} from '../../assets/svg/chevron-right.svg';
 
-import {ReactComponent as CheckIcon} from '../../assets/svg/check.svg';
-import {ReactComponent as CrossIcon} from '../../assets/svg/x.svg';
+
 import dayjs from 'dayjs';
+import { formatBytes } from '../../utils/maths';
+import StatusIcon from '../StatusIcon';
+import AppState from '../../types/app_state';
+import DeployStatus from '../../types/deploy_status';
 
 type Props = {
     app: AppType,
@@ -16,18 +19,17 @@ type Props = {
 function App(props: Props) {
     const {t} = useTranslation();
     const { app } = props;
+
     return (
         <div onClick={props.onClick} className={styles.app}>
-            {/* TODO: build status */}
-            <CheckIcon className={styles.check}/>
-            {/* <CrossIcon className={styles.cross}/> */}
+            <StatusIcon error={app.last_build?.error !== ""} stopped={app.state === AppState.Stopped} success={app.state === AppState.Running}/>
             <div className={styles.infos}>
                 <div className={styles.basicinfos}>
                     <p>{app.name}</p>
                     <small>{app.url}</small>
                 </div>
                 <div className={styles.lastdeploy}>
-                    <p>{app.container_options?.max_ram} MB</p>
+                    <p>{formatBytes(app.container_options?.max_ram!)} MB</p>
                     <small>{t('Last build')} {dayjs(app.last_build?.created_at).fromNow()}</small>
                 </div>
             </div>

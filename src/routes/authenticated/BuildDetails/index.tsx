@@ -9,9 +9,10 @@ import { useParams } from 'react-router';
 import Navbar from '../../../components/Navbar';
 import Build from '../../../types/build';
 import Input from '../../../components/Input';
-import {ReactComponent as CheckIcon} from '../../../assets/svg/check.svg';
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime';
+import StatusIcon from '../../../components/StatusIcon';
+import DeployStatus from '../../../types/deploy_status';
 dayjs.extend(relativeTime)
 
 function BuildDetails(props: any) {
@@ -38,7 +39,7 @@ function BuildDetails(props: any) {
             <Navbar app/>
             <div className={`route ${styles['build-details']}`}>
                 {build && <div className={`container`}>
-                    <h3><CheckIcon className={styles.check}/> <span>{t('Build')} {build.branch}@{build.commit_hash.substr(0, 8)}</span> </h3>
+                    <h3><StatusIcon success={build.status === DeployStatus.Deployed}/> <span>{t('Build')} {build.branch}@{build.commit_hash.substr(0, 8)}</span> </h3>
 
                     <p>
                         {dayjs(build.created_at).fromNow()}: {build.commit_message}

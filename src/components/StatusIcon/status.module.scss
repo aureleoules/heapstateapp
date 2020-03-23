@@ -1,0 +1,13 @@
+@import "../../styles/theme";
+
+.status {
+    &.success {
+        color: $success;
+    }
+    &.error {
+        color: $error;
+    }
+    &.sleeping {
+        color: $warning;
+    }
+}

@@ -24,6 +24,7 @@ import Navbar from '../../../components/Navbar';
 import Slider, { Range } from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import ContainerOptions from '../../../types/container_options';
+import { formatBytes } from '../../../utils/maths';
 
 let token: string;
 
@@ -59,7 +60,7 @@ function Deploy(props: any) {
     const [validRepo, setValidRepo] = useState<boolean>(false);
     const [checkingDockerfile, setCheckingDockerfile] = useState<boolean>(false);
 
-    const [containerRAM, setContainerRAM] = useState<number>(256);
+    const [containerRAM, setContainerRAM] = useState<number>(256 * 1024 * 1024);
 
     const dispatch = useDispatch();
 
@@ -84,21 +85,6 @@ function Deploy(props: any) {
             token = e.detail;
             fetchGitHubRepos();
         });
-
-        setProvider(Provider.GitHub);
-
-        const r: Array<any> = [
-            {
-                name: "aureleoules3",
-                owner: {
-                    login: "aureleoules"
-                }
-            }
-        ]
-
-        setRepos(r);
-        setFilteredRepos(r);
-        setSelectedRepo(r[0]);
     }, []);
 
     function selectRepo(repo: any) {
@@ -210,14 +196,14 @@ function Deploy(props: any) {
                                     <p className="bold">{t('8 MB / hour = 1 sat / hour')}</p>
                                     
                                     <div className={deploy.ram}>
-                                        <p>{t('Container RAM')}: {containerRAM} MB</p>
+                                        <p>{t('Container RAM')}: {formatBytes(containerRAM)} MB</p>
                                         <Slider
                                             trackStyle={{
                                                 backgroundColor: "#ff2763",
                                             }} 
-                                            step={8} 
-                                            max={1024} 
-                                            min={8} 
+                                            step={8 * 1024 * 1024} 
+                                            max={1024 * 1024 * 1024} 
+                                            min={8 * 1024 * 1024} 
                                             value={containerRAM} 
                                             onChange={value => setContainerRAM(value)}
                                             handleStyle={{
@@ -233,9 +219,9 @@ function Deploy(props: any) {
                                     <p>{t('You pay only for the time your container is running.')}</p>
 
                                     
-                                    <p>{containerRAM / 8} sats / <small>h</small></p>
+                                    <p>{formatBytes(containerRAM) / 8} sats / <small>h</small></p>
                                     <p className="bold">{t('or approximately')}</p>
-                                    <p>{((containerRAM / 8) * 31 * 24).toLocaleString()} sats / <small>{t('month')}</small></p>
+                                    <p>{((formatBytes(containerRAM) / 8) * 31 * 24).toLocaleString()} sats / <small>{t('month')}</small></p>
                                 </div>}
                                 
 

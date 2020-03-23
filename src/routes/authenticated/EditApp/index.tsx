@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import Button from '../../../components/Button';
 
-import {ReactComponent as CheckIcon} from '../../../assets/svg/check.svg';
 import { appActions } from '../../../actions';
 import { useParams } from 'react-router';
 import App from '../../../types/app';
@@ -18,6 +17,9 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 import ContainerStats from '../../../types/container_stats';
 import { round, formatBytes } from '../../../utils/maths';
 import ContainerStatsView from '../../../components/ContainerStats';
+import AppState from '../../../types/app_state';
+import StatusIcon from '../../../components/StatusIcon';
+
 dayjs.extend(relativeTime);
 
 function EditApp(props: any) {
@@ -41,22 +43,6 @@ function EditApp(props: any) {
     }, []);
 
     const stats: ContainerStats = appReducer.stats;
-    const data = appReducer.stats ? {
-        labels: [
-            'Used RAM (MB)',
-            'Available RAM (MB)'
-        ],
-        datasets: [{
-            data: [round(stats.ram_usage), round(stats.max_ram - stats.ram_usage)],
-            backgroundColor: [
-                '#ff2763'
-            ],
-            hoverBackgroundColor: [
-                '#FF6384'
-            ]
-        }]
-    } : {};
-
     function start() {
         dispatch(appActions.startApp(name!));
     }
@@ -79,7 +65,11 @@ function EditApp(props: any) {
                             <h3>{app.name}</h3>
                             <a target="_blank" href={"https://" + app.url}>{app.url}</a>
                             <p>
-                                <CheckIcon className={styles.check}/>{t('Deployed from')} {Providers[app.provider!]}. {t('Last build')} {dayjs(app.last_build?.created_at).fromNow()}.
+                            <StatusIcon error={app.last_build?.error !== ""} stopped={app.state === AppState.Stopped} success={app.state === AppState.Running}/> 
+                            {app.state === AppState.Stopped && <>{t('Currently idle')}. </>}
+                            {app.state === AppState.Running && <>{t('Deployed from')} {Providers[app.provider!]}. </>}
+                            {t('Last build')} {dayjs(app.last_build?.created_at).fromNow()}.
+                            
                             </p>
 
                             <div className={styles.actions}>
@@ -92,9 +82,9 @@ function EditApp(props: any) {
                             <h3>{t('Actions')}</h3>
                             <p>{t('Control your heapstate container.')}</p>
                             <div className={`${styles.actions} ${styles.bottom}`}>
-                                <Button onClick={start} small primary title={t('Start')}/>
-                                <Button onClick={restart} small title={t('Restart')}/>
-                                <Button onClick={stop} small title={t('Stop')}/>
+                                {app.state === AppState.Stopped && <Button onClick={start} small primary title={t('Start')}/>}
+                                {app.state === AppState.Running && <Button primary onClick={restart} small title={t('Restart')}/>}
+                                {app.state === AppState.Running && <Button onClick={stop} small title={t('Stop')}/>}
                                 <Button href={`/apps/${name}/logs`} small title={t('View logs')}/>
                             </div>
                         </div>
