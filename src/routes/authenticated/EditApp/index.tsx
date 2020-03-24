@@ -65,11 +65,10 @@ function EditApp(props: any) {
                             <h3>{app.name}</h3>
                             <a target="_blank" href={"https://" + app.url}>{app.url}</a>
                             <p>
-                            <StatusIcon error={app.last_build?.error !== ""} stopped={app.state === AppState.Stopped} success={app.state === AppState.Running}/> 
-                            {app.state === AppState.Stopped && <>{t('Currently idle')}. </>}
-                            {app.state === AppState.Running && <>{t('Deployed from')} {Providers[app.provider!]}. </>}
-                            {t('Last build')} {dayjs(app.last_build?.created_at).fromNow()}.
-                            
+                                <StatusIcon error={app.last_build?.error !== ""} stopped={app.state === AppState.Stopped} success={app.state === AppState.Running}/> 
+                                {app.state === AppState.Stopped && <>{t('Currently idle')}. </>}
+                                {app.state === AppState.Running && <>{t('Deployed from')} {Providers[app.provider!]}. </>}
+                                {t('Last build')} {dayjs(app.last_build?.created_at).fromNow()}.
                             </p>
 
                             <div className={styles.actions}>
