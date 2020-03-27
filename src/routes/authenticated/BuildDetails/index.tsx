@@ -1,18 +1,17 @@
-import React, { useEffect } from 'react';
-import styles from './builddetails.module.scss';
-import { useDispatch, useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
-import Button from '../../../components/Button';
-
-import { appActions } from '../../../actions';
-import { useParams } from 'react-router';
-import Navbar from '../../../components/Navbar';
-import Build from '../../../types/build';
-import Input from '../../../components/Input';
-import dayjs from 'dayjs'
+import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import React, { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router';
+import { appActions } from '../../../actions';
+import Input from '../../../components/Input';
+import Navbar from '../../../components/Navbar';
 import StatusIcon from '../../../components/StatusIcon';
+import Build from '../../../types/build';
 import DeployStatus from '../../../types/deploy_status';
+import styles from './builddetails.module.scss';
+
 dayjs.extend(relativeTime)
 
 function BuildDetails(props: any) {
@@ -31,7 +30,7 @@ function BuildDetails(props: any) {
 
     useEffect(() => {
         dispatch(appActions.fetchBuild(name!, id!))
-    }, []);
+    }, [dispatch, name, id]);
 
 
     return (

@@ -1,30 +1,24 @@
-import React, { useEffect } from 'react';
-
 import { ConnectedRouter } from 'connected-react-router';
-
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Route, Switch } from 'react-router';
+import { RouterState } from 'react-router-redux';
+import { userActions } from './actions';
 import history from './history';
-import { Switch, Route } from 'react-router';
-
-import './styles/index.scss';
-
+import AppLogs from './routes/authenticated/AppLogs';
+import Apps from './routes/authenticated/Apps';
+import BuildDetails from './routes/authenticated/BuildDetails';
+import Builds from './routes/authenticated/Builds';
+import BuildSettings from './routes/authenticated/BuildSettings';
+import Callback from './routes/authenticated/Callback';
+import Container from './routes/authenticated/Container';
+import Deploy from './routes/authenticated/Deploy';
+import EditApp from './routes/authenticated/EditApp';
+import Profile from './routes/authenticated/Profile';
 import Home from './routes/public/Home';
 import Login from './routes/public/Login';
 import Register from './routes/public/Register';
-import { useSelector, useDispatch } from 'react-redux';
-import Navbar from './components/Navbar';
-import Apps from './routes/authenticated/Apps';
-import Deploy from './routes/authenticated/Deploy';
-import Callback from './routes/authenticated/Callback';
-import { RouterState } from 'react-router-redux';
-import EditApp from './routes/authenticated/EditApp';
-import AppLogs from './routes/authenticated/AppLogs';
-import BuildSettings from './routes/authenticated/BuildSettings';
-import Builds from './routes/authenticated/Builds';
-import BuildDetails from './routes/authenticated/BuildDetails';
-import Profile from './routes/authenticated/Profile';
-import { userActions } from './actions';
-import Container from './routes/authenticated/Container';
-
+import './styles/index.scss';
 
 function Router(props: any) {
     
@@ -36,13 +30,12 @@ function Router(props: any) {
     const dispatch = useDispatch();
 
     const users: any = useSelector((state: RootState) => state.users);
-    const router: RouterState = useSelector((state: RootState) => state.router);
 
     useEffect(() => {
         if(users.loggedIn) {
             dispatch(userActions.fetchProfile());
         }
-    }, []);
+    }, [dispatch, users.loggedIn]);
 
     return (
         <ConnectedRouter history={history}>

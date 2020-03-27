@@ -1,7 +1,7 @@
 import React from 'react';
-
-import button from './button.module.scss';
 import { Link } from 'react-router-dom';
+import button from './button.module.scss';
+
 
 type Props = {
     onClick?: any
@@ -18,6 +18,7 @@ type Props = {
     small?: boolean
     danger?: boolean
     success?: boolean
+    rel?: string
 }
 
 function Button(props: Props) {
@@ -41,7 +42,7 @@ function Button(props: Props) {
 
     if(props.href) {
         if(props.external) return (
-            <a target={props.target} style={style} href={props.href} className={className} onClick={props.onClick}>
+            <a rel={props.rel} target={props.target} style={style} href={props.href} className={className} onClick={props.onClick}>
                 {content}
             </a>
         )

@@ -1,10 +1,9 @@
-import Client from '../httpClient';
-import history from '../history';
 import { appConstants } from '../constants/app.constants';
+import Client from '../httpClient';
 import App from '../types/app';
 import Build from '../types/build';
-import ContainerStats from '../types/container_stats';
 import ContainerOptions from '../types/container_options';
+import ContainerStats from '../types/container_stats';
 
 function newApp(app: App) {
     return (dispatch: any) => {

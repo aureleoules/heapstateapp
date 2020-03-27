@@ -1,30 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import deploy from './deploy.module.scss';
-import Button from '../../../components/Button';
-
-import { useTranslation } from 'react-i18next';
-
-import {ReactComponent as GitHubIcon} from '../../../assets/svg/github.svg';
-import {ReactComponent as GitLabIcon} from '../../../assets/svg/gitlab.svg';
-import {ReactComponent as BitBucketIcon} from '../../../assets/svg/bitbucket.svg';
-
-import Input from '../../../components/Input';
-
-import Provider from '../../../types/provider';
-
-import Client from '../../../httpClient';
-import Repository from '../../../components/Repository';
-
-import { Link } from 'react-router-dom';
-import App from '../../../types/app';
-import { useDispatch, useSelector } from 'react-redux';
-import BuildOptions from '../../../types/build_options';
-import {appActions} from '../../../actions';
-import Navbar from '../../../components/Navbar';
-import Slider, { Range } from 'rc-slider';
+import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
+import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { appActions } from '../../../actions';
+import { ReactComponent as BitBucketIcon } from '../../../assets/svg/bitbucket.svg';
+import { ReactComponent as GitHubIcon } from '../../../assets/svg/github.svg';
+import { ReactComponent as GitLabIcon } from '../../../assets/svg/gitlab.svg';
+import Button from '../../../components/Button';
+import Input from '../../../components/Input';
+import Navbar from '../../../components/Navbar';
+import Repository from '../../../components/Repository';
+import Client from '../../../httpClient';
+import App from '../../../types/app';
+import BuildOptions from '../../../types/build_options';
 import ContainerOptions from '../../../types/container_options';
+import Provider from '../../../types/provider';
 import { formatBytes } from '../../../utils/maths';
+import deploy from './deploy.module.scss';
 
 let token: string;
 
@@ -132,8 +126,6 @@ function Deploy(props: any) {
     interface RootState {
         users: any
     }
-
-    const users: any = useSelector((state: RootState) => state.users);
 
     return (
         <>

@@ -1,24 +1,23 @@
-import React, { useEffect } from 'react';
-import styles from './edit-app.module.scss';
-import { useDispatch, useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
-import Button from '../../../components/Button';
-
-import { appActions } from '../../../actions';
-import { useParams } from 'react-router';
-import App from '../../../types/app';
-import Navbar from '../../../components/Navbar';
-import Build from '../../../types/build';
-import BuildView from '../../../components/Build';
-import { Doughnut } from 'react-chartjs-2';
-import { Providers } from '../../../types/provider';
-import dayjs from 'dayjs'
+import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-import ContainerStats from '../../../types/container_stats';
-import { round, formatBytes } from '../../../utils/maths';
+import React, { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router';
+import { appActions } from '../../../actions';
+import BuildView from '../../../components/Build';
+import Button from '../../../components/Button';
 import ContainerStatsView from '../../../components/ContainerStats';
-import AppState from '../../../types/app_state';
+import Navbar from '../../../components/Navbar';
 import StatusIcon from '../../../components/StatusIcon';
+import App from '../../../types/app';
+import AppState from '../../../types/app_state';
+import Build from '../../../types/build';
+import ContainerStats from '../../../types/container_stats';
+import { Providers } from '../../../types/provider';
+import { formatBytes } from '../../../utils/maths';
+import styles from './edit-app.module.scss';
+
 
 dayjs.extend(relativeTime);
 
@@ -40,7 +39,7 @@ function EditApp(props: any) {
         dispatch(appActions.fetchApp(name!))
         dispatch(appActions.fetchBuilds(name!))
         dispatch(appActions.fetchStats(name!));
-    }, []);
+    }, [dispatch, name]);
 
     const stats: ContainerStats = appReducer.stats;
     function start() {
@@ -63,7 +62,7 @@ function EditApp(props: any) {
                     <div className={`${styles['app-infos']} container multi`}>
                         <div className="container-left">
                             <h3>{app.name}</h3>
-                            <a target="_blank" href={"https://" + app.url}>{app.url}</a>
+                            <a rel="noopener noreferrer" target="_blank" href={"https://" + app.url}>{app.url}</a>
                             <p>
                                 <StatusIcon error={app.last_build?.error !== ""} stopped={app.state === AppState.Stopped} success={app.state === AppState.Running}/> 
                                 {app.state === AppState.Stopped && <>{t('Currently idle')}. </>}
@@ -73,7 +72,7 @@ function EditApp(props: any) {
 
                             <div className={`${styles.actions}`}>
                                 <Button external href={`https://${app.name}.heapstate.com`} target="_blank" small primary title={t('Open')}/>
-                                <Button href={`/apps/${name}/options`} small primary title={t('Build settings')}/>
+                                <Button href={`/apps/${name}/options`} rel="noopener noreferrer" small primary title={t('Build settings')}/>
                                 <Button target="_blank" external href={`${app.complete_url}/blob/${app.build_options?.branch}/Dockerfile`} small title={t('Dockerfile')}/>
                             </div>
                         </div>

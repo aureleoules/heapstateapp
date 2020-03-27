@@ -18,10 +18,6 @@ type Props = {
     inputClassName?: string
 }
 
-function el(props: any) {
-    return <textarea {...props}/>
-}
-
 export default function Input(props: Props) {
 
     const inputProps = {

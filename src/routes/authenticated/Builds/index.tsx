@@ -1,14 +1,13 @@
 import React, { useEffect } from 'react';
-import styles from './builds.module.scss';
-import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import Button from '../../../components/Button';
-
-import { appActions } from '../../../actions';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
+import { appActions } from '../../../actions';
+import BuildView from '../../../components/Build';
 import Navbar from '../../../components/Navbar';
 import Build from '../../../types/build';
-import BuildView from '../../../components/Build';
+import styles from './builds.module.scss';
+
 
 function Builds(props: any) {
 
@@ -26,7 +25,7 @@ function Builds(props: any) {
 
     useEffect(() => {
         dispatch(appActions.fetchBuilds(name!))
-    }, []);
+    }, [dispatch, name]);
 
     return (
         <>

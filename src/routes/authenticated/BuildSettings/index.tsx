@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import Navbar from '../../../components/Navbar';
-
-import styles from './buildsettings.module.scss';
 import { useTranslation } from 'react-i18next';
-import Input from '../../../components/Input';
-import Button from '../../../components/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import { appActions } from '../../../actions';
+import Button from '../../../components/Button';
+import Input from '../../../components/Input';
+import Navbar from '../../../components/Navbar';
 import BuildOptions from '../../../types/build_options';
+import styles from './buildsettings.module.scss';
+
 
 
 function BuildSettings(props: any) {
@@ -28,7 +28,7 @@ function BuildSettings(props: any) {
 
     useEffect(() => {
         dispatch(appActions.fetchBuildOptions(name!))
-    }, []);
+    }, [dispatch, name]);
 
     const [branch, setBranch] = useState<string>();
 

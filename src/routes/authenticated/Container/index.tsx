@@ -1,18 +1,16 @@
-import React, { useEffect, useState } from 'react';
-
-import styles from './container.module.scss';
-import Navbar from '../../../components/Navbar';
-import { useTranslation } from 'react-i18next';
-import { useSelector, useDispatch } from 'react-redux';
-import { appActions } from '../../../actions';
-import { useParams } from 'react-router';
 import Slider from 'rc-slider';
-import ContainerStats from '../../../types/container_stats';
-import ContainerOptions from '../../../types/container_options';
+import React, { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router';
+import { appActions } from '../../../actions';
 import Button from '../../../components/Button';
 import ContainerStatsView from '../../../components/ContainerStats';
-import { stat } from 'fs';
+import Navbar from '../../../components/Navbar';
+import ContainerOptions from '../../../types/container_options';
+import ContainerStats from '../../../types/container_stats';
 import { formatBytes } from '../../../utils/maths';
+import styles from './container.module.scss';
 
 function Container(props: any) {
 
@@ -25,7 +23,7 @@ function Container(props: any) {
     useEffect(() => {
         dispatch(appActions.fetchContainerOptions(name!));
         dispatch(appActions.fetchStats(name!));
-    }, []);
+    }, [dispatch, name]);
 
     interface RootState {
         apps: any

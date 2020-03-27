@@ -22,7 +22,7 @@ function AppLogs(props: any) {
 
     useEffect(() => {
         dispatch(appActions.fetchLogs(name!))
-    }, []);
+    }, [dispatch, name]);
 
       return (
         <>

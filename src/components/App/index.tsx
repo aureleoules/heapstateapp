@@ -1,15 +1,14 @@
-import React from 'react';
-import styles from './app.module.scss';
-import AppType from '../../types/app';
-import { useTranslation } from 'react-i18next';
-import {ReactComponent as ChevronRight} from '../../assets/svg/chevron-right.svg';
-
-
 import dayjs from 'dayjs';
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { ReactComponent as ChevronRight } from '../../assets/svg/chevron-right.svg';
+import AppType from '../../types/app';
+import AppState from '../../types/app_state';
 import { formatBytes } from '../../utils/maths';
 import StatusIcon from '../StatusIcon';
-import AppState from '../../types/app_state';
-import DeployStatus from '../../types/deploy_status';
+import styles from './app.module.scss';
+
+
 
 type Props = {
     app: AppType,

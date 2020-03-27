@@ -1,18 +1,13 @@
 // /!\ Stateful component
 import React from 'react';
-
-import styles from './navbar.module.scss';
-import Logo from '../Logo';
-
-import Avatar from '../../assets/png/avatar.png';
-import { Link, useParams, useLocation } from 'react-router-dom';
-
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
+import { Link, useParams } from 'react-router-dom';
 import { RouterState } from 'react-router-redux';
-import {ReactComponent as PlusIcon} from '../../assets/svg/plus-circle.svg';
-import {ReactComponent as SatoshiIcon} from '../../assets/svg/satoshi.svg';
-
+import Avatar from '../../assets/png/avatar.png';
+import { ReactComponent as SatoshiIcon } from '../../assets/svg/satoshi.svg';
+import Logo from '../Logo';
+import styles from './navbar.module.scss';
 
 type Props = {
     app?: boolean
@@ -92,7 +87,7 @@ function Navbar(props: Props) {
                         </Link> */}
                     </Link>}
                     <Link to="/profile">
-                        <img src={Avatar}/>
+                        <img alt="avatar" src={Avatar}/>
                     </Link>
                 </div>
             </div>

@@ -1,5 +1,4 @@
 import axios from 'axios';
-import User from '../types/user';
 import UserProfile from '../types/user.profile';
 
 export default {
