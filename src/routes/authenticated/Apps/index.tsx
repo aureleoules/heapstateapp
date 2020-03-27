@@ -35,8 +35,8 @@ function Apps(props: any) {
             <div className={"route " + styles.apps}>
                 <div className={styles.container}>
                     <div className={styles.top}>
-                        <Input width={"80%"} placeholder={t('Search')}/>
-                        <Button width={"15%"} href="/deploy" primary title={t("Deploy new app")}/>
+                        <Input placeholder={t('Search')}/>
+                        <Button href="/deploy" primary title={t("Deploy new app")}/>
                     </div>
                     <div className={styles.list}>
                         {appsReducer.apps.map((app: App, k: number) => (

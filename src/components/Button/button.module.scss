@@ -19,6 +19,10 @@ a.button {
     transition: all 150ms ease-in;
     cursor: pointer;
 
+    p {
+        text-align: center;
+    }
+
     .withicon {
         display: flex;
         align-items: center;
@@ -39,7 +43,7 @@ a.button {
     
     &.primary {
         background: $primary;
-        span {color: $light!important;}
+        p {color: $light!important;}
     }
 
     &.small {

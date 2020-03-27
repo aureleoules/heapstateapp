@@ -120,11 +120,9 @@ function Deploy(props: any) {
         }
 
         const app: App = {
-            token,
             container_options: containerOptions,
+            complete_url: selectedRepo.html_url,
             build_options: buildOptions,
-            name: selectedRepo.name,
-            owner: selectedRepo.owner.login,
             provider: provider
         }
 

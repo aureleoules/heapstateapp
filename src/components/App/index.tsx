@@ -22,8 +22,8 @@ function App(props: Props) {
 
     return (
         <div onClick={props.onClick} className={styles.app}>
-            <StatusIcon error={app.last_build?.error !== ""} stopped={app.state === AppState.Stopped} success={app.state === AppState.Running}/>
             <div className={styles.infos}>
+                <StatusIcon error={app.last_build?.error !== ""} stopped={app.state === AppState.Stopped} success={app.state === AppState.Running}/>
                 <div className={styles.basicinfos}>
                     <p>{app.name}</p>
                     <small>{app.url}</small>

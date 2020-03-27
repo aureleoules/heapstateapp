@@ -72,7 +72,7 @@ function EditApp(props: any) {
                             </p>
 
                             <div className={styles.actions}>
-                                <Button small primary title={t('Open')}/>
+                                <Button external href={`https://${app.name}.heapstate.com`} target="_blank" small primary title={t('Open')}/>
                                 <Button href={`/apps/${name}/options`} small primary title={t('Build settings')}/>
                                 <Button target="_blank" external href={`${app.complete_url}/blob/${app.build_options?.branch}/Dockerfile`} small title={t('Dockerfile')}/>
                             </div>
