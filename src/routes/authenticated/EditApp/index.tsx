@@ -71,13 +71,13 @@ function EditApp(props: any) {
                                 {t('Last build')} {dayjs(app.last_build?.created_at).fromNow()}.
                             </p>
 
-                            <div className={styles.actions}>
+                            <div className={`${styles.actions}`}>
                                 <Button external href={`https://${app.name}.heapstate.com`} target="_blank" small primary title={t('Open')}/>
                                 <Button href={`/apps/${name}/options`} small primary title={t('Build settings')}/>
                                 <Button target="_blank" external href={`${app.complete_url}/blob/${app.build_options?.branch}/Dockerfile`} small title={t('Dockerfile')}/>
                             </div>
                         </div>
-                        <div className="container-right relative">
+                        <div className={`container-right relative ${styles['container-actions']}`}>
                             <h3>{t('Actions')}</h3>
                             <p>{t('Control your heapstate container.')}</p>
                             <div className={`${styles.actions} ${styles.bottom}`}>

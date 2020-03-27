@@ -19,6 +19,10 @@
 
         a {
             color: $primary;
+
+            @media screen and (max-width: 1200px) {
+                margin-bottom: 10px;
+            }
         }
 
         p {
@@ -27,6 +31,21 @@
             align-items: center;
             svg {
                 margin-right: 5px;
+            }
+        }
+
+        .container-actions {
+            @media screen and (max-width: 1200px) {
+                &::before {
+                    background-image: linear-gradient(-90deg, rgba(255, 255, 255, 0) 0, #000 25%, #000 90%, rgba(255, 255, 255, 0) 100%);
+                    content: "";
+                    display: block;
+                    height: 2px;
+                    margin-bottom: 15px;
+                    opacity: 0.2;
+                    width: 100%;
+                }
+                margin-top: 15px;
             }
         }
 
@@ -40,6 +59,10 @@
             &.bottom {
                 position: absolute;
                 bottom: 0;
+
+                @media screen and (max-width: 1200px) {
+                    position: relative;
+                }
             }
         }
 

@@ -22,7 +22,7 @@ type Props = {
 
 function Button(props: Props) {
 
-    const content = <p className={props.icon ? button.withicon : ""}>{props.icon && <props.icon className={button.icon}/>} {props.title}</p>
+    const content = <div className={`${props.icon ? button.withicon : ""} ${button.content}`}>{props.icon && <props.icon className={button.icon}/>} {props.title}</div>
     
     const className = [
         button.button, 

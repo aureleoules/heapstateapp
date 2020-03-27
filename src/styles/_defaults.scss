@@ -56,6 +56,16 @@ p.error {
         display: flex;
         justify-content: space-between;
         flex-direction: row;
+
+        @media screen and (max-width: 1200px) {
+            flex-direction: column;
+            .container-left, .container-right {
+                margin-left: 0!important;
+            }
+            .container-right {
+                margin-top: 25px;
+            }
+        }
         .container-left, .container-right {
             width: 100%;
         }
@@ -73,6 +83,18 @@ p.error {
     margin-top: 30px;
     display: flex;
     justify-content: space-between;
+
+    @media screen and (max-width: 1000px) {
+        flex-direction: column;
+
+        .container {
+            width: unset!important;
+            // margin: 0!important;
+            margin-left: 0!important;
+            margin-right: 0!important;
+            margin-bottom: 30px;
+        }
+    }
 
     &:first-child {
         margin-top: 0;

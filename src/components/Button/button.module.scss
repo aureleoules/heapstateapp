@@ -19,9 +19,9 @@ a.button {
     transition: all 150ms ease-in;
     cursor: pointer;
 
-    p {
+    div.content {
         text-align: center;
-    }
+    }   
 
     .withicon {
         display: flex;
@@ -43,7 +43,7 @@ a.button {
     
     &.primary {
         background: $primary;
-        p {color: $light!important;}
+        div {color: $light!important;}
     }
 
     &.small {
