@@ -16,6 +16,7 @@ function Apps(props: any) {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        document.title = `Heapstate - ${t('Apps')}`;
         dispatch(appActions.fetchApps());
     }, [dispatch]);
 

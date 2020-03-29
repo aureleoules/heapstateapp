@@ -11,9 +11,9 @@
     "Sign in": "Se connecter",
     "Sign up": "Créer un compte",
     "Apps": "Applications",
-    "Usage": "Consommation",
+    "Usage": "Utilisation",
     "Settings": "Paramètres",
-    "Deploy new app": "Déployer une nouvelle application",
+    "Deploy new app": "Déployer",
     "Deploy an app": "Nouvelle application",
     "Deploy from": "Déployer à partir de",
     "Configure deployment options for your app.": "Configurer les options de déploiement.",
@@ -25,5 +25,19 @@
     "Repository": "Projet",
     "Choose the repository you wish to deploy.": "Sélectionnez le projet que vous souhaitez déployer.",
     "Search": "Rechercher",
-    "Last deploy": "Dernier déploiement :"
+    "Last deploy": "Dernier déploiement :",
+    "Last build": "Dernière compilation:",
+    "Deployed from": "Déployé à partir de",
+    "Actions": "Actions",
+    "Control your heapstate container.": "Controllez votre container heapstate.",
+    "Builds": "Déploiements",
+    "Build settings": "Paramètres de déploiement",
+    "Open": "Ouvrir",
+    "Restart": "Redémarrer",
+    "Stop": "Arrêter",
+    "View logs": "Voir les logs",
+    "Container options": "Options du container",
+    "Configure your heapstate container to your needs.": "Configurez votre container heapstate en fonction de vos besoins.",
+    "Deploy": "Déployer"
+
 }
