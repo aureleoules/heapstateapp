@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { RouterState } from 'react-router-redux';
 import Avatar from '../../assets/png/avatar.png';
-import { ReactComponent as SatoshiIcon } from '../../assets/svg/satoshi.svg';
 import Logo from '../Logo';
 import styles from './navbar.module.scss';
 
@@ -79,13 +78,6 @@ function Navbar(props: Props) {
                     <p>BETA</p>
                 </div>
                 <div className={styles.usertoggle}>
-                    {users.profile && <Link className={styles.credits} to="/profile">
-                        {users.profile.credits.toLocaleString()} 
-                        <SatoshiIcon/>
-                        {/* <Link to="/profile">
-                            <PlusIcon/>
-                        </Link> */}
-                    </Link>}
                     <Link to="/profile">
                         <img alt="avatar" src={Avatar}/>
                     </Link>

@@ -55,7 +55,6 @@ function Container(props: any) {
                         <div className={styles.ram}>
                             <p>
                                 RAM: {formatBytes(max_ram)} MB<br/>
-                                {t('Price')}: {max_ram / 1024 / 1024 / 8} sats / h
                             </p>
                             <Slider
                                 trackStyle={{

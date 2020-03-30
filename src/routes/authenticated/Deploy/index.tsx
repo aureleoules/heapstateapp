@@ -183,7 +183,6 @@ function Deploy(props: any) {
                                 {provider !== Provider.None && selectedRepo && <div className={deploy.step}>
                                     <h3>{t('Container options')}</h3>
                                     <p>{t('Configure your heapstate container to your needs.')}</p>
-                                    <p className="bold">{t('8 MB / hour = 1 sat / hour')}</p>
                                     
                                     <div className={deploy.ram}>
                                         <p>{t('Container RAM')}: {formatBytes(containerRAM)} MB</p>
@@ -202,18 +201,7 @@ function Deploy(props: any) {
                                         />
                                     </div>
                                     <Input value={branch} onChange={(e: any) => setBranch(e.target.value)} label={t('Branch')}/>
-                                </div>}
-                                
-                                {provider !== Provider.None && selectedRepo && <div className={`${deploy.step} ${deploy.cost}`}>
-                                    <h3>{t('Cost')}</h3>
-                                    <p>{t('You pay only for the time your container is running.')}</p>
-
-                                    
-                                    <p>{formatBytes(containerRAM) / 8} sats / <small>h</small></p>
-                                    <p className="bold">{t('or approximately')}</p>
-                                    <p>{((formatBytes(containerRAM) / 8) * 31 * 24).toLocaleString()} sats / <small>{t('month')}</small></p>
-                                </div>}
-                                
+                                </div>}                              
 
                                 {provider !== Provider.None && selectedRepo && <div className={`${deploy.submitButtons} ${deploy.step}`}>
                                     <Button
