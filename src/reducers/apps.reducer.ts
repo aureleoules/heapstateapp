@@ -4,6 +4,8 @@ import Build from '../types/build';
 import BuildOptions from '../types/build_options';
 import ContainerOptions from '../types/container_options';
 import ContainerStats from '../types/container_stats';
+import EnvVar from '../types/env_var';
+import update from 'react-addons-update';
 
 type Action = {
     type: string
@@ -18,6 +20,12 @@ type Action = {
     stats: ContainerStats,
     logs: string
     max_ram: number
+
+    index: number
+    key: string
+    value: string
+    
+    branch: string
 }
 
 const defaultState = {
@@ -46,7 +54,10 @@ const defaultState = {
     container_options_error: null,
     save_container_options_error: null,
     max_ram: 0,
-    stop_error: null
+    stop_error: null,
+    env: [],
+    branch: "",
+    save_build_options_error: null,
 }
 
 export function apps(state = defaultState, action: Action) {
@@ -118,7 +129,9 @@ export function apps(state = defaultState, action: Action) {
             return {
                 ...state,
                 fetching: false,
-                build_options: action.build_options
+                build_options: action.build_options,
+                env: action.build_options.env || [{"key": "", value: ""}],
+                branch: action.build_options.branch
             };
         case appConstants.FETCH_BUILD_OPTIONS_FAILURE:
             return {
@@ -331,6 +344,68 @@ export function apps(state = defaultState, action: Action) {
                 save_container_options_error: action.error
             };
 
+
+
+        /* SET ENV VAR KEY */
+        case appConstants.SET_ENV_VAR_KEY:
+            return update(state, {
+                env: {
+                    [action.index]: {
+                        key: {$set: action.key}
+                    }
+                }
+            })
+
+        /* SET ENV VAR VALUE */
+        case appConstants.SET_ENV_VAR_VALUE:
+            return update(state, {
+                env: {
+                    [action.index]: {
+                        value: {$set: action.value}
+                    }
+                }
+            })
+
+        /* ADD ENV VAR */
+        case appConstants.ADD_ENV_VAR:
+            return {
+                ...state,
+                env: [...state.env, {key: "", value: ""}]
+            }
+
+        /* REMOVE ENV VAR */
+        case appConstants.REMOVE_ENV_VAR:
+            return update(state, {
+                env: {
+                    $splice: [[action.index, 1]]
+                }
+            })
+
+
+        /* SAVE BUILD OPTIONS */
+        case appConstants.SAVE_BUILD_OPTIONS_START:
+            return {
+                ...state,
+                saving: true
+            };
+        case appConstants.SAVE_BUILD_OPTIONS_SUCCESS:
+            return {
+                ...state,
+                saving: false,
+                saved: true
+            };
+        case appConstants.SAVE_BUILD_OPTIONS_FAILURE:
+            return {
+                ...state,
+                saving: false,
+                save_build_options_error: action.error
+            };
+
+        case appConstants.SET_BRANCH:
+            return {
+                ...state,
+                branch: action.branch
+            }
         default:
             return state
     }

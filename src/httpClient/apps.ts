@@ -114,5 +114,12 @@ export default {
         }).catch(err => {
             reject(err);
         });
+    }),
+    saveBuildOptions: (name: string, options: BuildOptions) => new Promise<void>((resolve, reject) => {
+        axios.put(route + '/'+name+'/buildoptions', options).then(response => {
+            resolve(response.data.payload);
+        }).catch(err => {
+            reject(err);
+        });
     })
 }

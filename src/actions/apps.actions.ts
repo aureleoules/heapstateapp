@@ -4,6 +4,7 @@ import App from '../types/app';
 import Build from '../types/build';
 import ContainerOptions from '../types/container_options';
 import ContainerStats from '../types/container_stats';
+import BuildOptions from '../types/build_options';
 
 function newApp(app: App) {
     return (dispatch: any) => {
@@ -236,6 +237,60 @@ function saveContainerOptions(name: string, container_options: ContainerOptions)
     function failure(error: Error) { return { type: appConstants.SAVE_CONTAINER_OPTIONS_FAILURE, error } }
 }
 
+
+function setEnvVarKey(key: string, index: number) {
+    return {
+        type: appConstants.SET_ENV_VAR_KEY,
+        key,
+        index
+    }
+}
+
+function setEnvVarValue(value: string, index: number) {
+    return {
+        type: appConstants.SET_ENV_VAR_VALUE,
+        value,
+        index
+    }
+}
+
+function removeEnvVar(index: number) {
+    return {
+        type: appConstants.REMOVE_ENV_VAR,
+        index
+    }
+}
+
+function addEnvVar() {
+    return {
+        type: appConstants.ADD_ENV_VAR
+    }
+}
+
+
+function saveBuildOptions(name: string, build_options: BuildOptions) {
+    return (dispatch: any) => {
+        dispatch(request());
+
+        Client.Apps.saveBuildOptions(name, build_options).then(() => {
+            dispatch(success());
+        }).catch(err => {
+            dispatch(failure(err));
+        });
+    }
+
+    function request() { return { type: appConstants.SAVE_BUILD_OPTIONS_START}}
+    function success() { return { type: appConstants.SAVE_BUILD_OPTIONS_SUCCESS}}
+    function failure(error: Error) { return { type: appConstants.SAVE_BUILD_OPTIONS_FAILURE, error } }
+}
+
+function setBranch(branch: string) {
+    return {
+        type: appConstants.SET_BRANCH,
+        branch
+    }
+}
+
 export default {
     newApp,
     fetchApps,
@@ -251,6 +306,13 @@ export default {
     startApp,
     stopApp,
     restartApp,
-    saveContainerOptions
+    saveContainerOptions,
+
+    setEnvVarKey,
+    setEnvVarValue,
+    removeEnvVar,
+    addEnvVar,
+    saveBuildOptions,
+    setBranch
 };
 

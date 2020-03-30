@@ -8,6 +8,7 @@ import Input from '../../../components/Input';
 import Navbar from '../../../components/Navbar';
 import BuildOptions from '../../../types/build_options';
 import styles from './buildsettings.module.scss';
+import EnvVar from '../../../types/env_var';
 
 
 
@@ -19,21 +20,52 @@ function BuildSettings(props: any) {
 
     interface RootState {
         apps: any
+        env: Array<EnvVar>
+        build_options: BuildOptions
     }
     const appReducer: any = useSelector((state: RootState) => state.apps);
     
     const buildOptions: BuildOptions = appReducer.build_options;
-    
+    const env: Array<EnvVar> = appReducer.env;
+    const branch: string = appReducer.branch;
+
     const {name} = useParams();
 
     useEffect(() => {
         dispatch(appActions.fetchBuildOptions(name!))
     }, [dispatch, name]);
 
-    const [branch, setBranch] = useState<string>();
-
     function deploy() {
         dispatch(appActions.forceDeploy(name!));
+    }
+
+    if(env.length > 0 && env[env.length-1].key !== "" && env[env.length-1].value !== "") {
+        dispatch(appActions.addEnvVar());
+    }
+
+    if(env.length > 1) {
+        for(let i = 0; i < env.length; i++) {
+            if(env[i].key === "" && env[i].value === "" && i !== env.length-1) {
+                dispatch(appActions.removeEnvVar(i));
+            }
+        }
+    }
+
+    function setKey(key: string, i: number) {
+        dispatch(appActions.setEnvVarKey(key, i));
+    }
+
+    function setValue(value: string, i: number) {
+        dispatch(appActions.setEnvVarValue(value, i));
+    }
+
+    function save() {
+        const buildOptions: BuildOptions = {
+            branch,
+            // Exclude last, which is empty
+            env: env.slice(0, -1)
+        }
+        dispatch(appActions.saveBuildOptions(name!, buildOptions));
     }
 
     return (
@@ -43,21 +75,22 @@ function BuildSettings(props: any) {
                 <div className={`container ${styles.container}`}>
                     <h3>{t('Builds settings')}</h3>
                     <Input 
-                        defaultValue={buildOptions.branch}
                         label={t('Branch')} 
-                        onChange={(e: any) => setBranch(e.target.value)}
+                        onChange={(e: any) => dispatch(appActions.setBranch(e.target.value))}
                         value={branch}
                     />
                     <div className={styles['env-vars']}>
                         <h3>{t('Environnement variables')}</h3>
-                        <div className={styles['env-var']}>
-                            <Input className={styles.key} label={t('Key')}/>
-                            <Input className={styles.value} label={t('Value')}/>
-                        </div>
+                        {env.map((v, i) => (
+                            <div key={i} className={styles['env-var']}>
+                                <Input onChange={(e: any) => setKey(e.target.value, i)} value={v.key} className={styles.key} label={t('Key')}/>
+                                <Input onChange={(e: any) => setValue(e.target.value, i)} value={v.value} className={styles.value} label={t('Value')}/>
+                            </div>
+                        ))}
                     </div>
 
                     <div className={styles.actions}>
-                        <Button primary title={t('Save')}/>
+                        <Button onClick={save} primary title={t('Save')}/>
                         <Button onClick={deploy} title={t('Force deploy')}/>
                     </div>
                 </div>
