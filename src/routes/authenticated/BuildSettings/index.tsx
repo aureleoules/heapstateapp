@@ -9,6 +9,7 @@ import Navbar from '../../../components/Navbar';
 import BuildOptions from '../../../types/build_options';
 import styles from './buildsettings.module.scss';
 import EnvVar from '../../../types/env_var';
+import { confirmModal } from '../../../utils/modal';
 
 
 
@@ -36,7 +37,25 @@ function BuildSettings(props: any) {
     }, [dispatch, name]);
 
     function deploy() {
-        dispatch(appActions.forceDeploy(name!));
+        confirmModal((close: any) =>
+        <div className="custom-modal">
+            <h2>{t('Force deploy?')}</h2>
+            <p>{t('Are you sure that you want to force a deployment?')}</p>
+
+            <div className={"actions"}>
+                <Button 
+                    onClick={() => {
+                            dispatch(appActions.forceDeploy(name!));
+                            close();
+                        }
+                    } 
+                    small 
+                    primary 
+                    title={t('Force deploy')}
+                />
+                <Button onClick={close} small cancel title={t('Cancel')}/>
+            </div>
+        </div>);
     }
 
     if(env.length > 0 && env[env.length-1].key !== "" && env[env.length-1].value !== "") {
@@ -60,6 +79,27 @@ function BuildSettings(props: any) {
     }
 
     function save() {
+        confirmModal((close: any) =>
+        <div className="custom-modal">
+            <h2>{t('Save build options?')}</h2>
+            <p>{t('Are you sure that you want to save these build options?')}</p>
+
+            <div className={"actions"}>
+                <Button 
+                    onClick={() => {
+                        _save(); 
+                        close();}
+                    }
+                    small 
+                    primary 
+                    title={t('Save')}
+                />
+                <Button onClick={close} small cancel title={t('Cancel')}/>
+            </div>
+        </div>);
+    }
+
+    function _save() {
         const buildOptions: BuildOptions = {
             branch,
             // Exclude last, which is empty

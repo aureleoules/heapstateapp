@@ -46,6 +46,11 @@ a.button {
         div {color: $light!important;}
     }
 
+    &.cancel {
+        background: $grey;
+        div {color: $dark!important;}
+    }
+
     &.small {
         padding: 6px 10px;
         font-size: 1.1em;

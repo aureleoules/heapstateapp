@@ -11,6 +11,7 @@ import ContainerOptions from '../../../types/container_options';
 import ContainerStats from '../../../types/container_stats';
 import { formatBytes } from '../../../utils/maths';
 import styles from './container.module.scss';
+import { confirmModal } from '../../../utils/modal';
 
 function Container(props: any) {
 
@@ -34,13 +35,31 @@ function Container(props: any) {
     const containerOptions: ContainerOptions = appReducer.container_options;
     const max_ram: number = appReducer.max_ram;
     
-
     function save() {
+        confirmModal((close: any) =>
+        <div className="custom-modal">
+            <h2>{t('Save container options?')}</h2>
+            <p>{t('Are you sure that you want to save these options?')}</p>
 
+            <div className={"actions"}>
+                <Button 
+                    onClick={() => {
+                        _save(); 
+                        close();}
+                    }
+                    small 
+                    primary 
+                    title={t('Save')}
+                />
+                <Button onClick={close} small cancel title={t('Cancel')}/>
+            </div>
+        </div>);
+    }
+
+    function _save() {
         const containerOptions: ContainerOptions = {
             max_ram
         }
-
         dispatch(appActions.saveContainerOptions(name!, containerOptions));
     }
 
@@ -61,7 +80,7 @@ function Container(props: any) {
                                     backgroundColor: "#ff2763",
                                 }} 
                                 step={8 * 1024 * 1024} 
-                                max={1024 * 1024 * 1024} 
+                                max={4096 * 1024 * 1024} 
                                 min={8 * 1024 * 1024} 
                                 value={max_ram}
                                 onChange={value => dispatch(appActions.setContainerRAM(value))}

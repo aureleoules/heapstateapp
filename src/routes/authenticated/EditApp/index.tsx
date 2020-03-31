@@ -17,7 +17,7 @@ import ContainerStats from '../../../types/container_stats';
 import { Providers } from '../../../types/provider';
 import { formatBytes } from '../../../utils/maths';
 import styles from './edit-app.module.scss';
-
+import { confirmModal } from '../../../utils/modal';
 
 dayjs.extend(relativeTime);
 
@@ -43,15 +43,69 @@ function EditApp(props: any) {
 
     const stats: ContainerStats = appReducer.stats;
     function start() {
-        dispatch(appActions.startApp(name!));
+        confirmModal((close: any) =>
+        <div className="custom-modal">
+            <h2>{t('Start app?')}</h2>
+            <p>{t('Are you sure that you want to start your app?')}</p>
+
+            <div className={"actions"}>
+                <Button 
+                    onClick={() => {
+                            dispatch(appActions.startApp(name!));
+                            close();
+                        }
+                    } 
+                    small 
+                    primary 
+                    title={t('Start app')}
+                />
+                <Button onClick={close} small cancel title={t('Cancel')}/>
+            </div>
+        </div>);
     }
 
     function restart() {
-        dispatch(appActions.restartApp(name!));
+        confirmModal((close: any) =>
+        <div className="custom-modal">
+            <h2>{t('Restart app?')}</h2>
+            <p>{t('Are you sure that you want to restart your app?')}</p>
+
+            <div className={"actions"}>
+                <Button 
+                    onClick={() => {
+                            dispatch(appActions.restartApp(name!));
+                            close();
+                        }
+                    } 
+                    small 
+                    primary 
+                    title={t('Restart app')}
+                />
+                <Button onClick={close} small cancel title={t('Cancel')}/>
+            </div>
+        </div>);
     }
 
     function stop() {
-        dispatch(appActions.stopApp(name!));
+        confirmModal((close: any) =>
+        <div className="custom-modal">
+            <h2>{t('Stop app?')}</h2>
+            <p>{t('Are you sure that you want to stop your app?')}</p>
+
+            <div className={"actions"}>
+                <Button 
+                    onClick={() => {
+                            dispatch(appActions.stopApp(name!));
+                            close();
+                        }
+                    } 
+                    small 
+                    primary 
+                    title={t('Stop app')}
+                />
+                <Button onClick={close} small cancel title={t('Cancel')}/>
+            </div>
+        </div>);
     }
 
     return (

@@ -18,6 +18,7 @@ type Props = {
     small?: boolean
     danger?: boolean
     success?: boolean
+    cancel?: boolean
     rel?: string
 }
 
@@ -32,8 +33,9 @@ function Button(props: Props) {
         props.small ? button.small : "",
         props.danger ? button.danger : "",
         props.success ? button.success : "",
+        props.cancel ? button.cancel : "",
 
-        !props.primary && !props.danger && !props.success ? button.secondary : "" 
+        !props.primary && !props.danger && !props.success && !props.cancel ? button.secondary : "" 
     ].join(" ");
 
     const style = {

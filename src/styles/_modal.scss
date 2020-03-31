@@ -1,0 +1,30 @@
+.custom-modal {
+    background: #121f24;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+
+    h2 {
+        margin-bottom: 15px;
+    }
+
+    p {
+        margin-bottom: 20px;
+    }
+
+    .actions {
+        :nth-child(2) {
+            margin-left: 15px;
+        }
+    }
+
+}
+
+.blur {
+    filter: blur(3px);
+}
+
+.react-confirm-alert-overlay {
+    background: rgba(8, 8, 8, 0.5)!important;
+    animation: react-confirm-alert-fadeIn 0.25s 0.2s forwards!important;
+}

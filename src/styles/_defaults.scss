@@ -1,5 +1,9 @@
 @import "theme";
 
+#root {
+    transition: filter 0.25s;
+}
+
 h1 {
     font-size: 4em;
 }
