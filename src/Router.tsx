@@ -1,7 +1,7 @@
 import { ConnectedRouter } from 'connected-react-router';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Route, Switch } from 'react-router';
+import { Route, Switch, Redirect } from 'react-router';
 import { RouterState } from 'react-router-redux';
 import { userActions } from './actions';
 import history from './history';
@@ -42,7 +42,7 @@ function Router(props: any) {
             <Switch>
                 {!users.loggedIn && 
                     <React.Fragment>
-                        <Route exact path="/" component={Home}/>
+                        <Route exact path="/" render={() => <Redirect to="/login"/>}/>
                         <Route exact path="/login" component={Login}/>
                         <Route exact path="/register" component={Register}/>
                     </React.Fragment>
