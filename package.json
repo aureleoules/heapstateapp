@@ -18,7 +18,7 @@
     "@types/redux": "^3.6.0",
     "@types/redux-logger": "^3.0.7",
     "axios": "^0.19.2",
-    "chart.js": "^2.9.3",
+    "chart.js": "^2.9.4",
     "connected-react-router": "^6.7.0",
     "dayjs": "^1.8.22",
     "history": "^4.10.1",
