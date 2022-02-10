@@ -24,7 +24,7 @@
     "history": "^4.10.1",
     "i18next": "^19.3.2",
     "i18next-browser-languagedetector": "^4.0.2",
-    "node-sass": "^4.13.1",
+    "node-sass": "^7.0.0",
     "rc-slider": "^9.2.3",
     "react": "^16.13.0",
     "react-addons-update": "^15.6.2",
